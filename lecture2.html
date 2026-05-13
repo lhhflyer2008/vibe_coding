@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第二讲：AI创造工作坊——从Trae到PBL教学网站创建</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">AI<span>×</span>教学</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">课程首页</a></li>
+      <li><a href="lecture1.html">第一讲</a></li>
+      <li><a href="lecture2.html" class="active">第二讲</a></li>
+      <li><a href="lecture3.html">第三讲</a></li>
+      <li><a href="lecture4.html">第四讲</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Page Header ── -->
+<header class="page-header">
+  <div class="section-number">第二讲</div>
+  <h2 class="section-title">AI 创造工作坊：<br>从 Trae 到 PBL 教学网站创建</h2>
+  <p class="section-desc">掌握 MCP 协议与 Skill 机制——从"使用者"到"创造者"，用 AI 工具链赋能每一门学科的教学</p>
+</header>
+
+<!-- ── Breadcrumb ── -->
+<div class="breadcrumb">
+  <a href="index.html">课程首页</a> &gt; 第二讲
+</div>
+
+<!-- ── Content Section ── -->
+<section class="section section-alt">
+
+  <!-- 2.1 什么是MCP -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">1</span>什么是 MCP？——给 AI 装上"万能接口" <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~40分钟</span></h3>
+    <div class="subsection-body">
+
+      <p><strong>MCP（Model Context Protocol，模型上下文协议）</strong> 是 Anthropic 于 2024 年底发布的开源协议。它的核心使命是：<strong>让 AI 模型能够安全、标准化地与外部工具和数据源通信</strong>。</p>
+
+      <h5 style="color:var(--ink); margin:20px 0 10px; font-size:0.95rem;">一个比喻理解 MCP</h5>
+      <p>如果把 AI 比作一个人的<strong>大脑</strong>，那么 MCP 就是这个人身上的<strong>神经系统</strong>——大脑通过神经控制双手（工具）、感知外界（数据）、协调行动（工作流）。没有 MCP 的 AI 就像"缸中之脑"：能思考，但无法与外界互动。</p>
+
+      <div class="cards-grid" style="margin-top:16px;">
+        <div class="info-card">
+          <h4>统一标准</h4>
+          <p>如同 USB 协议让任何设备都能即插即用，MCP 让任何工具都能被 AI 调用——一次开发，到处使用</p>
+        </div>
+        <div class="info-card">
+          <h4>能力扩展</h4>
+          <p>通过 MCP Server 为 AI 添加：数据库查询、文件操作、API 调用、本地程序执行等能力</p>
+        </div>
+        <div class="info-card">
+          <h4>客户端-服务器架构</h4>
+          <p>Client（Trae/Cursor等 AI IDE）← <strong>MCP 协议</strong> → Server（你写的工具服务），双方通过 JSON-RPC 通信</p>
+        </div>
+        <div class="info-card">
+          <h4>安全可控</h4>
+          <p>用户授权机制——MCP Server 只能在用户明确允许的范围内操作，不会越权访问文件或网络</p>
+        </div>
+        <div class="info-card">
+          <h4>生态开放</h4>
+          <p>任何人都可以开发并分享 MCP Server，社区已有数百个现成的 Server 可直接使用</p>
+        </div>
+        <div class="info-card">
+          <h4>教学意义</h4>
+          <p>教师可以为 AI 接入学科数据库、成绩系统、课件库，让通用 AI 变成<strong>专属教学助手</strong></p>
+        </div>
+      </div>
+
+      <h5 style="color:var(--ink); margin:20px 0 10px; font-size:0.95rem;">MCP 的工作原理（一张图看懂）</h5>
+      <div class="code-block" style="margin-left:0;">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <pre>
+  ┌─────────────┐         MCP 协议          ┌──────────────────┐
+  │             │ ◄──────────────────────► │                  │
+  │  AI IDE     │  ① 发现：有哪些工具可用？  │  MCP Server      │
+  │  (Client)   │  ② 调用：请执行这个工具    │  (你的代码)       │
+  │  Trae/      │  ③ 返回：这是执行结果      │                  │
+  │  Cursor/    │                           │  ├─ 数据库查询    │
+  │  ClaudeCode │                           │  ├─ 文件操作      │
+  │             │                           │  ├─ API 调用      │
+  └─────────────┘                           │  └─ 本地程序      │
+                                            └──────────────────┘
+                                                    │
+                                                    ▼
+                                            ┌──────────────────┐
+                                            │  外部资源         │
+                                            │  成绩库/课件库/   │
+                                            │  词典/题库/...    │
+                                            └──────────────────┘</pre>
+      </div>
+
+      <h5 style="color:var(--ink); margin:20px 0 10px; font-size:0.95rem;">没有 MCP vs 有 MCP——教学场景对比</h5>
+      <div class="tools-table-wrap" style="padding-left:0;">
+        <table class="tools-table">
+          <thead><tr><th>场景</th><th>没有 MCP 时</th><th>有了 MCP 后</th></tr></thead>
+          <tbody>
+            <tr><td>查课文生字</td><td>AI 凭训练记忆回答，可能出错</td><td>AI 实时查询课文数据库，100%准确</td></tr>
+            <tr><td>改数学作业</td><td>只能给文字评价，无法计算对错</td><td>AI 调用计算引擎，自动判断每道题</td></tr>
+            <tr><td>英语听力练习</td><td>只能提供文字，无法发音</td><td>AI 调用 TTS 引擎，生成标准范读</td></tr>
+            <tr><td>查学生成绩</td><td>需要手动粘贴成绩数据</td><td>AI 直连成绩数据库，自动分析趋势</td></tr>
+            <tr><td>准备课件素材</td><td>手动搜索图片、视频</td><td>AI 调用素材库 API，自动匹配内容</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.2 MCP的通用结构 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">2</span>MCP 的通用结构——学会"搭骨架" <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~20分钟</span></h3>
+    <div class="subsection-body">
+      <p>无论你教哪门学科，MCP Server 的结构都是<strong>一模一样</strong>的。掌握这个通用模板，你就能为任何学科搭建工具：</p>
+      <div class="code-block" style="margin-top:16px;">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <pre><span class="cm"># ═══════════════ MCP Server 通用模板 ═══════════════</span>
+<span class="cm"># 以下结构适用于任意学科——只需替换 "## 你的学科内容" 部分</span>
+
+<span class="kw">from</span> mcp.server <span class="kw">import</span> Server
+<span class="kw">from</span> mcp.server.models <span class="kw">import</span> InitializationCapabilities
+
+<span class="cm"># ① 创建服务器——给它起个名字</span>
+server = Server(<span class="str">"my-teaching-tools"</span>)
+
+<span class="cm"># ② 准备你的学科数据或工具</span>
+<span class="cm">## ============ 这里替换为你学科的内容 ============</span>
+<span class="cm">## 语文：课文数据库、诗词库、字词释义字典</span>
+<span class="cm">## 数学：公式库、题库、几何图形参数</span>
+<span class="cm">## 英语：单词库、语法规则、例句集合</span>
+<span class="cm">## 思政：法律条文、时事案例库、价值观讨论题</span>
+<span class="cm">## 音乐：乐理知识库、曲谱数据、音乐家信息</span>
+<span class="cm">## 信息：代码模板库、算法动画数据、API文档</span>
+<span class="cm">## ===============================================</span>
+
+<span class="cm"># ③ 定义工具——每个 @server.tool() 就是 AI 能调用的一个功能</span>
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">my_tool</span>(param: str) -> str:
+    <span class="str">"""工具描述——AI 会根据这个描述决定何时调用它"""</span>
+    <span class="cm"># 在这里实现你的逻辑</span>
+    <span class="kw">return</span> <span class="str">"结果"</span>
+
+<span class="cm"># ④ 启动服务器</span>
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    server.run()</pre>
+      </div>
+      <div style="margin-top:12px; padding:12px 16px; background:rgba(91,140,90,0.08); border-radius:8px; font-size:0.82rem; color:var(--jade);">
+        关键认知：80% 的 MCP 代码是"骨架"（每个学科都一样），只有 20% 是你的"学科专属内容"。这意味着你只需学一次，就能复用终身。
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.3 六学科MCP案例（重新设计——聚焦MCP核心价值） -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">3</span>六大学科 MCP 案例——让 AI 做到它原本做不到的事 <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~60分钟</span></h3>
+    <div class="subsection-body">
+
+      <div class="tip-box green" style="margin-bottom:20px;">
+        <strong>关键认知：MCP 不是知识库，是"手"和"眼"</strong><br>
+        AI 的训练数据里已经有古诗词、数学公式、语法规则——这些不需要 MCP。MCP 的真正价值在于：<strong>读取本地文件、执行代码计算、操作数据库、生成真实文件、调用外部系统</strong>。下面六个案例，每个都让 AI 做一件它"想得到但做不到"的事。
+      </div>
+
+      <!-- 语文：作文批改系统 -->
+      <div style="margin-top:24px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid var(--vermillion);">
+        <h5 style="font-size:1rem; margin-bottom:4px;">语文：作文批改系统 MCP</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;"><strong>核心价值：</strong>读取本地作文文件 → 逐篇批改 → 导出批改报告（Word/Excel）——AI 自己只能分析你粘贴给它的文字，有了 MCP 它就能直接操作你电脑上的文件。</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># chinese_essay_mcp/server.py</span>
+<span class="kw">import</span> os, json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+<span class="kw">from</span> docx <span class="kw">import</span> Document  <span class="cm"># 操作 Word 文件</span>
+
+server = Server(<span class="str">"essay-grader"</span>)
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">read_essays_from_folder</span>(folder_path: str) -> dict:
+    <span class="str">"""读取文件夹中所有学生作文（.txt / .docx），AI 自己做不到这一点"""</span>
+    essays = {}
+    <span class="kw">for</span> file <span class="kw">in</span> Path(folder_path).glob(<span class="str">"*.txt"</span>):
+        essays[file.name] = file.read_text(encoding=<span class="str">"utf-8"</span>)
+    <span class="kw">for</span> file <span class="kw">in</span> Path(folder_path).glob(<span class="str">"*.docx"</span>):
+        doc = Document(file)
+        essays[file.name] = <span class="str">"\n"</span>.join(p.text <span class="kw">for</span> p <span class="kw">in</span> doc.paragraphs)
+    <span class="kw">return</span> {<span class="str">"文件数"</span>: len(essays), <span class="str">"作文列表"</span>: essays}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">batch_grade_essays</span>(folder_path: str, criteria: dict) -> dict:
+    <span class="str">"""批量批改——读取→分析→打分→生成报告，一键完成"""</span>
+    results = {}
+    <span class="kw">for</span> file <span class="kw">in</span> Path(folder_path).glob(<span class="str">"*.txt"</span>):
+        text = file.read_text(encoding=<span class="str">"utf-8"</span>)
+        <span class="cm"># 由 AI 逐篇分析：结构、语言、内容、卷面</span>
+        results[file.stem] = {
+            <span class="str">"内容分"</span>: <span class="str">"由AI根据criteria判断"</span>,
+            <span class="str">"语言分"</span>: <span class="str">"由AI根据criteria判断"</span>,
+            <span class="str">"总评"</span>: <span class="str">"由AI生成个性化评语"</span>
+        }
+    <span class="kw">return</span> results
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">export_grading_report</span>(results: dict, output_path: str) -> str:
+    <span class="str">"""将批改结果导出为 Word 报告——真文件，可直接打印发给学生"""</span>
+    doc = Document()
+    doc.add_heading(<span class="str">"作文批改报告"</span>, level=<span class="num">1</span>)
+    <span class="kw">for</span> name, result <span class="kw">in</span> results.items():
+        doc.add_heading(name, level=<span class="num">2</span>)
+        <span class="kw">for</span> key, val <span class="kw">in</span> result.items():
+            doc.add_paragraph(<span class="str">f"{key}：{val}"</span>)
+    doc.save(output_path)
+    <span class="kw">return</span> <span class="str">f"报告已保存至 {output_path}，可直接打开查看"</span></pre>
+        </div>
+        <div class="detail-box" style="margin-top:12px; background:rgba(196,69,54,0.04);">
+          <p style="margin:0;font-size:0.85rem;"><strong>没有 MCP 时：</strong>老师手动复制每篇作文粘贴给 AI → AI 逐一分析 → 老师手动整理结果到 Excel。<br>
+          <strong>有了 MCP 后：</strong>老师说"批改 D:\作文\期中 文件夹下的 40 篇作文"→ AI 自己读文件、逐篇批改、生成 Word 报告。</p>
+        </div>
+      </div>
+
+      <!-- 数学：动态出题与批改 -->
+      <div style="margin-top:20px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #2196F3;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">数学：动态出题与批改 MCP</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;"><strong>核心价值：</strong>用 Python 精确计算出题（不是 AI 猜答案）、逐题批改全班作业、自动生成错题统计——AI 自己算数学题经常算错，MCP 用代码算，100% 准确。</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># math_exam_mcp/server.py</span>
+<span class="kw">import</span> random, json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+server = Server(<span class="str">"math-exam-generator"</span>)
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">generate_math_paper</span>(grade: int, topics: list, count: int = <span class="num">10</span>) -> dict:
+    <span class="str">"""出题 + 答案一起生成——答案由 Python 精确计算，不是 AI 猜的"""</span>
+    paper = {<span class="str">"年级"</span>: f<span class="str">"{grade}年级"</span>, <span class="str">"题目"</span>: []}
+    <span class="kw">for</span> i <span class="kw">in</span> range(count):
+        a, b = random.randint(<span class="num">1</span>, <span class="num">100</span>), random.randint(<span class="num">1</span>, <span class="num">100</span>)
+        <span class="kw">if</span> <span class="str">"四则运算"</span> <span class="kw">in</span> topics:
+            paper[<span class="str">"题目"</span>].append({
+                <span class="str">"题号"</span>: i+<span class="num">1</span>,
+                <span class="str">"题目"</span>: f<span class="str">"{a} + {b} = ?"</span>,
+                <span class="str">"答案"</span>: a + b  <span class="cm"># Python 精确计算</span>
+            })
+    <span class="kw">return</span> paper
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">grade_student_answers</span>(paper: dict, student_answers: list) -> dict:
+    <span class="str">"""逐题批改——用代码逐题比对，不可能算错"""</span>
+    correct = <span class="num">0</span>
+    details = []
+    <span class="kw">for</span> i, q <span class="kw">in</span> enumerate(paper[<span class="str">"题目"</span>]):
+        is_correct = student_answers[i] == q[<span class="str">"答案"</span>]
+        <span class="kw">if</span> is_correct: correct += <span class="num">1</span>
+        details.append({<span class="str">"题号"</span>: i+<span class="num">1</span>, <span class="str">"是否做对"</span>: is_correct, <span class="str">"正确答案"</span>: q[<span class="str">"答案"</span>]})
+    <span class="kw">return</span> {<span class="str">"总分"</span>: correct, <span class="str">"正确率"</span>: f<span class="str">"{correct}/{len(paper['题目'])}"</span>, <span class="str">"逐题详情"</span>: details}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">batch_grade_from_csv</span>(csv_path: str) -> dict:
+    <span class="str">"""从 CSV 文件读取全班答卷 → 自动批改 → 输出全班成绩单"""</span>
+    <span class="kw">import</span> csv
+    results = {}
+    <span class="kw">with</span> open(csv_path, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
+        <span class="kw">for</span> row <span class="kw">in</span> csv.DictReader(f):
+            <span class="cm"># 逐行读取学生答案并批改</span>
+            results[row[<span class="str">"姓名"</span>]] = {<span class="str">"已批改"</span>: True, <span class="str">"分数"</span>: <span class="str">"由代码计算"</span>}
+    <span class="kw">return</span> results</pre>
+        </div>
+        <div class="detail-box" style="margin-top:12px; background:rgba(33,150,243,0.04);">
+          <p style="margin:0;font-size:0.85rem;"><strong>没有 MCP 时：</strong>老师把题目粘贴给 AI → AI"心算"答案（经常出错）→ 老师还得自己验证。<br>
+          <strong>有了 MCP 后：</strong>Python 代码算答案 → 100% 准确 → 批量读 CSV 改全班作业 → 输出成绩单。</p>
+        </div>
+      </div>
+
+      <!-- 英语：听写追踪系统 -->
+      <div style="margin-top:20px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #FF9800;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">英语：听写追踪系统 MCP</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;"><strong>核心价值：</strong>生成本地音频文件、SQLite 数据库追踪每个学生的拼写错误、自动生成个性化复习清单——AI 自己记不住上次谁错了什么词，MCP 用数据库永久记录。</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># english_dictation_mcp/server.py</span>
+<span class="kw">import</span> sqlite3, json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+<span class="kw">from</span> gtts <span class="kw">import</span> gTTS  <span class="cm"># 文字转语音，生成真实音频文件</span>
+
+server = Server(<span class="str">"dictation-tracker"</span>)
+DB_PATH = Path(<span class="str">"dictation_record.db"</span>)
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">generate_dictation_audio</span>(words: list, output_dir: str) -> dict:
+    <span class="str">"""生成听写音频文件——每个单词一个 .mp3，真文件，可以播放"""</span>
+    files = []
+    <span class="kw">for</span> i, word <span class="kw">in</span> enumerate(words):
+        tts = gTTS(word, lang=<span class="str">"en"</span>)
+        path = Path(output_dir) / f<span class="str">"word_{i+1:02d}_{word}.mp3"</span>
+        tts.save(str(path))
+        files.append(str(path))
+    <span class="kw">return</span> {<span class="str">"生成文件数"</span>: len(files), <span class="str">"文件列表"</span>: files}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">record_dictation_result</span>(student: str, results: dict) -> str:
+    <span class="str">"""记录听写结果到 SQLite——AI 自己记不住，数据库永远不丢"""</span>
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute(<span class="str">"""CREATE TABLE IF NOT EXISTS dictation (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        student TEXT, word TEXT, correct INTEGER, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )"""</span>)
+    <span class="kw">for</span> word, correct <span class="kw">in</span> results.items():
+        conn.execute(<span class="str">"INSERT INTO dictation (student, word, correct) VALUES (?, ?, ?)"</span>,
+                     [student, word, correct])
+    conn.commit(); conn.close()
+    <span class="kw">return</span> f<span class="str">"已记录 {student} 的 {len(results)} 个单词听写结果"</span>
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">get_error_report</span>(student: str) -> dict:
+    <span class="str">"""查询某学生的历史错词——来自真实数据库，不是 AI 记忆"""</span>
+    conn = sqlite3.connect(DB_PATH)
+    rows = conn.execute(
+        <span class="str">"SELECT word, COUNT(*) as errors FROM dictation WHERE student=? AND correct=0 GROUP BY word ORDER BY errors DESC"</span>,
+        [student]).fetchall()
+    conn.close()
+    <span class="kw">return</span> {<span class="str">"学生"</span>: student, <span class="str">"高频错词"</span>: [{<span class="str">"单词"</span>: r[<span class="num">0</span>], <span class="str">"错误次数"</span>: r[<span class="num">1</span>]} <span class="kw">for</span> r <span class="kw">in</span> rows]}</pre>
+        </div>
+        <div class="detail-box" style="margin-top:12px; background:rgba(255,152,0,0.04);">
+          <p style="margin:0;font-size:0.85rem;"><strong>没有 MCP 时：</strong>老师每次重新描述学生情况 → AI 从零开始 → 无法追踪长期进步。<br>
+          <strong>有了 MCP 后：</strong>每次听写自动存入数据库 → 随时查询"张三这学期错了哪些词"→ 生成个性化复习清单。</p>
+        </div>
+      </div>
+
+      <!-- 思政：辩论助手系统 -->
+      <div style="margin-top:20px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #E91E63;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">思政：辩论助手系统 MCP</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;"><strong>核心价值：</strong>创建投票、收集各方论点到本地文件、导出辩论记录——AI 自己无法"记住"课堂上的投票结果和辩论过程，MCP 把它们变成永久档案。</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># debate_mcp/server.py</span>
+<span class="kw">import</span> json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+
+server = Server(<span class="str">"debate-assistant"</span>)
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">create_debate_session</span>(topic: str, sides: list) -> dict:
+    <span class="str">"""创建一场辩论赛——生成结构化文件夹，保存辩题、正反方信息"""</span>
+    session_dir = Path(<span class="str">f"debates/{topic}_{datetime.now():%Y%m%d_%H%M}"</span>)
+    session_dir.mkdir(parents=<span class="kw">True</span>)
+    info = {<span class="str">"辩题"</span>: topic, <span class="str">"正方"</span>: sides[<span class="num">0</span>], <span class="str">"反方"</span>: sides[<span class="num">1</span>], <span class="str">"创建时间"</span>: str(datetime.now())}
+    (session_dir / <span class="str">"info.json"</span>).write_text(json.dumps(info, ensure_ascii=<span class="kw">False</span>, indent=<span class="num">2</span>))
+    <span class="kw">return</span> {<span class="str">"会话目录"</span>: str(session_dir), <span class="str">"辩论信息"</span>: info}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">record_argument</span>(session_dir: str, side: str, student: str, argument: str) -> str:
+    <span class="str">"""记录一位学生的论点——写入真实文件，课后可回顾"""</span>
+    log_file = Path(session_dir) / f<span class="str">"{side}_arguments.txt"</span>
+    <span class="kw">with</span> open(log_file, <span class="str">"a"</span>, encoding=<span class="str">"utf-8"</span>) <span class="kw">as</span> f:
+        f.write(f<span class="str">"[{datetime.now():%H:%M}] {student}：{argument}\n"</span>)
+    <span class="kw">return</span> f<span class="str">"已记录 {student}（{side}）的论点"</span>
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">export_debate_summary</span>(session_dir: str) -> dict:
+    <span class="str">"""导出辩论总结——将所有记录整理成结构化报告"""</span>
+    p = Path(session_dir)
+    info = json.loads((p / <span class="str">"info.json"</span>).read_text())
+    pro_args = (p / <span class="str">"正方_arguments.txt"</span>).read_text() <span class="kw">if</span> (p / <span class="str">"正方_arguments.txt"</span>).exists() <span class="kw">else</span> <span class="str">"暂无"</span>
+    con_args = (p / <span class="str">"反方_arguments.txt"</span>).read_text() <span class="kw">if</span> (p / <span class="str">"反方_arguments.txt"</span>).exists() <span class="kw">else</span> <span class="str">"暂无"</span>
+    <span class="kw">return</span> {<span class="str">"辩题"</span>: info[<span class="str">"辩题"</span>], <span class="str">"正方论点汇总"</span>: pro_args, <span class="str">"反方论点汇总"</span>: con_args}</pre>
+        </div>
+        <div class="detail-box" style="margin-top:12px; background:rgba(233,30,99,0.04);">
+          <p style="margin:0;font-size:0.85rem;"><strong>没有 MCP 时：</strong>课堂上讨论完就没了 → AI 不记得谁说了什么 → 无法沉淀为学习档案。<br>
+          <strong>有了 MCP 后：</strong>每次辩论自动存档 → 学生可以看到自己的思维成长轨迹 → 期末导出辩论集。</p>
+        </div>
+      </div>
+
+      <!-- 音乐：节奏练习生成器 -->
+      <div style="margin-top:20px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #9C27B0;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">音乐：节奏练习生成器 MCP</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;"><strong>核心价值：</strong>根据难度参数生成节奏练习、输出为可打印的乐谱文件、创建节拍器引导——AI 自己只能描述节奏，MCP 让它真正"制造"音乐教学材料。</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># music_rhythm_mcp/server.py</span>
+<span class="kw">import</span> random, json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+server = Server(<span class="str">"rhythm-trainer"</span>)
+
+<span class="cm"># 节奏型库——从简单到复杂</span>
+RHYTHM_PATTERNS = {
+    <span class="num">1</span>: [<span class="str">"♩ ♩ ♩ ♩"</span>, <span class="str">"♩ ♩ ♫ ♩"</span>],       <span class="cm"># 入门：全四分音符</span>
+    <span class="num">2</span>: [<span class="str">"♫ ♫ ♩ ♩"</span>, <span class="str">"♩ ♫ ♫ ♩"</span>],       <span class="cm"># 基础：八分音符组合</span>
+    <span class="num">3</span>: [<span class="str">"♬♬ ♫ ♩ ♩"</span>, <span class="str">"♩. ♪ ♫ ♩"</span>],     <span class="cm"># 进阶：十六分音符 + 附点</span>
+    <span class="num">4</span>: [<span class="str">"♪♬ ♩. ♪ ♫"</span>, <span class="str">"♩ ♪♬♬ ♫"</span>],     <span class="cm"># 高级：复杂切分</span>
+}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">generate_rhythm_exercise</span>(level: int, measures: int = <span class="num">8</span>) -> dict:
+    <span class="str">"""根据难度等级生成节奏练习——Python 随机组合，保证多样性"""</span>
+    patterns = RHYTHM_PATTERNS.get(level, RHYTHM_PATTERNS[<span class="num">1</span>])
+    exercise = [random.choice(patterns) <span class="kw">for</span> _ <span class="kw">in</span> range(measures)]
+    bpm = {<span class="num">1</span>: <span class="num">60</span>, <span class="num">2</span>: <span class="num">80</span>, <span class="num">3</span>: <span class="num">100</span>, <span class="num">4</span>: <span class="num">120</span>}.get(level, <span class="num">80</span>)
+    <span class="kw">return</span> {<span class="str">"难度"</span>: level, <span class="str">"建议速度"</span>: f<span class="str">"{bpm} BPM"</span>, <span class="str">"小节数"</span>: measures, <span class="str">"练习内容"</span>: <span class="str">" | "</span>.join(exercise)}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">export_rhythm_sheet</span>(exercise: dict, output_path: str) -> str:
+    <span class="str">"""将节奏练习导出为练习文本——学生可以直接看着打拍子"""</span>
+    lines = [
+        f<span class="str">"节奏练习——难度 Lv.{exercise['难度']} | 速度：{exercise['建议速度']}"</span>,
+        <span class="str">"="</span> * <span class="num">50</span>,
+        exercise[<span class="str">"练习内容"</span>],
+        <span class="str">""</span>,
+        <span class="str">"练习提示：先用脚打拍子，再用手拍节奏"</span>
+    ]
+    Path(output_path).write_text(<span class="str">"\n"</span>.join(lines), encoding=<span class="str">"utf-8"</span>)
+    <span class="kw">return</span> f<span class="str">"练习谱已保存至 {output_path}"</span>
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">metronome_guide</span>(bpm: int, time_signature: str = <span class="str">"4/4"</span>) -> dict:
+    <span class="str">"""生成节拍器引导——告诉学生每个小节如何数拍子"""</span>
+    beats = int(time_signature.split(<span class="str">"/"</span>)[<span class="num">0</span>])
+    <span class="kw">return</span> {
+        <span class="str">"速度"</span>: bpm,
+        <span class="str">"拍号"</span>: time_signature,
+        <span class="str">"数拍方式"</span>: <span class="str">" ".join</span>([str(i) <span class="kw">for</span> i <span class="kw">in</span> range(<span class="num">1</span>, beats+<span class="num">1</span>)]),
+        <span class="str">"重音位置"</span>: f<span class="str">"第1拍重，其余轻"</span>
+    }</pre>
+        </div>
+        <div class="detail-box" style="margin-top:12px; background:rgba(156,39,176,0.04);">
+          <p style="margin:0;font-size:0.85rem;"><strong>没有 MCP 时：</strong>AI 只能文字描述"这个节奏应该怎么打"→ 老师自己凭经验设计练习。<br>
+          <strong>有了 MCP 后：</strong>输入难度等级 → MCP 自动生成练习谱 → 导出可打印的练习纸 → 内置节拍器引导。</p>
+        </div>
+      </div>
+
+      <!-- 信息科技：代码评测系统 -->
+      <div style="margin-top:20px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #00BCD4;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">信息科技：代码评测系统 MCP</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;"><strong>核心价值：</strong>在沙箱中真正运行学生代码、批量执行测试用例、检测代码相似度——AI 自己只能"看"代码，MCP 让它真正"跑"代码并给出运行结果。</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># cs_judge_mcp/server.py</span>
+<span class="kw">import</span> subprocess, tempfile, os
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+server = Server(<span class="str">"code-judge"</span>)
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">run_python_code</span>(code: str, test_input: str = <span class="str">""</span>) -> dict:
+    <span class="str">"""在沙箱中真正运行 Python 代码——AI 自己只能猜输出，MCP 给出真实运行结果"""</span>
+    <span class="kw">with</span> tempfile.NamedTemporaryFile(mode=<span class="str">"w"</span>, suffix=<span class="str">".py"</span>, delete=<span class="kw">False</span>) <span class="kw">as</span> f:
+        f.write(code); f.flush()
+        result = subprocess.run(
+            [<span class="str">"python"</span>, f.name], input=test_input, capture_output=<span class="kw">True</span>,
+            text=<span class="kw">True</span>, timeout=<span class="num">5</span>
+        )
+        os.unlink(f.name)
+    <span class="kw">return</span> {
+        <span class="str">"运行成功"</span>: result.returncode == <span class="num">0</span>,
+        <span class="str">"标准输出"</span>: result.stdout,
+        <span class="str">"错误信息"</span>: result.stderr <span class="kw">if</span> result.stderr <span class="kw">else</span> <span class="str">"无"</span>
+    }
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">batch_test_submissions</span>(folder_path: str, test_cases: list) -> dict:
+    <span class="str">"""批量评测学生代码——读取文件夹中所有 .py 文件，逐个运行测试用例"""</span>
+    results = {}
+    <span class="kw">for</span> file <span class="kw">in</span> Path(folder_path).glob(<span class="str">"*.py"</span>):
+        code = file.read_text()
+        passed = <span class="num">0</span>
+        <span class="kw">for</span> case <span class="kw">in</span> test_cases:
+            <span class="kw">with</span> tempfile.NamedTemporaryFile(mode=<span class="str">"w"</span>, suffix=<span class="str">".py"</span>, delete=<span class="kw">False</span>) <span class="kw">as</span> f:
+                f.write(code); f.flush()
+                r = subprocess.run([<span class="str">"python"</span>, f.name],
+                    input=case[<span class="str">"input"</span>], capture_output=<span class="kw">True</span>, text=<span class="kw">True</span>, timeout=<span class="num">3</span>)
+                os.unlink(f.name)
+                <span class="kw">if</span> r.stdout.strip() == case[<span class="str">"expected"</span>].strip():
+                    passed += <span class="num">1</span>
+        results[file.stem] = {<span class="str">"通过"</span>: passed, <span class="str">"总计"</span>: len(test_cases), <span class="str">"通过率"</span>: f<span class="str">"{passed}/{len(test_cases)}"</span>}
+    <span class="kw">return</span> results
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">check_similarity</span>(folder_path: str) -> list:
+    <span class="str">"""检测代码相似度——用 difflib 逐对比对，发现可能的抄袭"""</span>
+    <span class="kw">from</span> difflib <span class="kw">import</span> SequenceMatcher
+    files = list(Path(folder_path).glob(<span class="str">"*.py"</span>))
+    similar = []
+    <span class="kw">for</span> i <span class="kw">in</span> range(len(files)):
+        <span class="kw">for</span> j <span class="kw">in</span> range(i+<span class="num">1</span>, len(files)):
+            a, b = files[i].read_text(), files[j].read_text()
+            ratio = SequenceMatcher(<span class="kw">None</span>, a, b).ratio()
+            <span class="kw">if</span> ratio > <span class="num">0.85</span>:
+                similar.append({<span class="str">"文件A"</span>: files[i].name, <span class="str">"文件B"</span>: files[j].name, <span class="str">"相似度"</span>: f<span class="str">"{ratio:.1%}"</span>})
+    <span class="kw">return</span> similar</pre>
+        </div>
+        <div class="detail-box" style="margin-top:12px; background:rgba(0,188,212,0.04);">
+          <p style="margin:0;font-size:0.85rem;"><strong>没有 MCP 时：</strong>AI 只能"看"代码给建议 → 不知道代码到底能不能跑 → 老师要手动逐个测试。<br>
+          <strong>有了 MCP 后：</strong>MCP 在沙箱真正执行代码 → 40 份作业一键批改 → 自动检测代码抄袭。</p>
+        </div>
+      </div>
+
+      <!-- 六大学科 MCP 价值一览 -->
+      <div style="margin-top:28px; padding:20px; background:rgba(45,125,95,0.05); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="color:var(--ink); margin-bottom:12px; font-size:0.95rem;">六大学科 MCP 价值一览</h5>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>学科</th><th>MCP 名称</th><th>AI 自己做不到的事</th><th>MCP 让 AI 做到的</th></tr></thead>
+            <tbody>
+              <tr><td>语文</td><td>作文批改系统</td><td>读取本地文件、生成Word报告</td><td>一键批改整个文件夹的作文</td></tr>
+              <tr><td>数学</td><td>动态出题批改</td><td>精确计算答案、批量处理CSV</td><td>出题+批改+成绩单全自动</td></tr>
+              <tr><td>英语</td><td>听写追踪系统</td><td>生成音频文件、长期追踪错词</td><td>个性化复习清单+听写音频</td></tr>
+              <tr><td>思政</td><td>辩论助手系统</td><td>持久化记录、跨会话存档</td><td>课堂辩论→永久档案+总结</td></tr>
+              <tr><td>音乐</td><td>节奏练习生成器</td><td>动态生成练习、输出实体材料</td><td>按难度自动生成可打印练习谱</td></tr>
+              <tr><td>信息科技</td><td>代码评测系统</td><td>真正运行代码、检测抄袭</td><td>沙箱执行+批量评测+相似度</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 学员选择指南 -->
+      <div style="margin-top:20px; padding:20px; background:rgba(184,150,62,0.06); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="color:var(--ink); margin-bottom:12px; font-size:0.95rem;">学员动手指南——选你的学科方向</h5>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>你的学科</th><th>推荐搭建的 MCP</th><th>核心能力（AI做不到的）</th><th>难度</th></tr></thead>
+            <tbody>
+              <tr><td>语文</td><td>作文批改系统</td><td>文件读写 + Word 导出</td><td>★★★☆☆</td></tr>
+              <tr><td>数学</td><td>动态出题批改</td><td>Python计算 + CSV处理</td><td>★★★☆☆</td></tr>
+              <tr><td>英语</td><td>听写追踪系统</td><td>音频生成 + SQLite数据库</td><td>★★★★☆</td></tr>
+              <tr><td>思政</td><td>辩论助手系统</td><td>文件持久化 + JSON存档</td><td>★★☆☆☆</td></tr>
+              <tr><td>音乐</td><td>节奏练习生成器</td><td>随机生成 + 文件导出</td><td>★★☆☆☆</td></tr>
+              <tr><td>信息科技</td><td>代码评测系统</td><td>沙箱执行 + 代码对比</td><td>★★★★☆</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.82rem; color:var(--stone); margin-top:8px;">讲师提示：让学生先想一个问题——"在我的学科里，有什么事是 AI 想得到但做不到的？"想清楚了再动手。MCP 的意义不是给 AI 一本字典，而是<strong>给 AI 一双手</strong>。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.4 动手实操——从零搭建你的第一个MCP -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">4</span>动手实操——从零搭建你的第一个 MCP <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~45分钟</span></h3>
+    <div class="subsection-body">
+      <p>看了六个学科的代码示例之后，现在我们来<strong>真正动手</strong>。以语文"作文批改系统 MCP"为例，从空白文件夹开始，一步步搭建出一个能用的 MCP Server。</p>
+
+      <!-- Step 1: 环境准备 -->
+      <div style="margin-top:24px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">第一步：环境准备——5分钟</h5>
+        <p>先确保电脑上有 Python 环境。打开终端（Windows 按 <code>Win+R</code> 输入 <code>cmd</code> 回车），逐条输入以下命令：</p>
+        <div class="code-block" style="margin-left:0; margin-top:12px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 1. 检查 Python 是否已安装（显示版本号即表示已安装）</span>
+python --version
+<span class="cm"># 期望输出：Python 3.10.x 或更高版本</span>
+
+<span class="cm"># 2. 如果提示"python 不是内部命令"，需要先安装 Python</span>
+<span class="cm"># 打开 python.org/downloads → 下载 → 安装时勾选"Add Python to PATH"</span>
+
+<span class="cm"># 3. 安装 MCP Python SDK</span>
+pip install mcp
+<span class="cm"># 期望输出：Successfully installed mcp-1.x.x</span>
+
+<span class="cm"># 4. 验证安装成功</span>
+python -c "from mcp.server import Server; print('MCP 安装成功！')"</pre>
+        </div>
+        <div class="tip-box green" style="margin-top:12px;">如果 <code>pip install mcp</code> 速度很慢，可以用国内镜像：<code>pip install mcp -i https://pypi.tuna.tsinghua.edu.cn/simple</code></div>
+      </div>
+
+      <!-- Step 2: 创建项目 -->
+      <div style="margin-top:28px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">第二步：创建项目文件夹——3分钟</h5>
+        <p>在终端中依次执行以下命令，创建 MCP 项目的目录结构：</p>
+        <div class="code-block" style="margin-left:0; margin-top:12px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># Windows 用户（PowerShell 或 CMD）</span>
+mkdir C:\my-mcp
+mkdir C:\my-mcp\essay_grader
+cd C:\my-mcp\essay_grader
+
+<span class="cm"># 创建空白的 server.py 文件</span>
+<span class="cm"># 方法1：在文件管理器中右键 → 新建 → 文本文档 → 重命名为 server.py</span>
+<span class="cm"># 方法2：用 Trae 直接打开 C:\my-mcp 文件夹，右键新建 server.py</span></pre>
+        </div>
+        <p style="margin-top:8px;">最终目录结构应该是：</p>
+        <div class="code-block" style="margin-left:0; margin-top:8px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre>C:\my-mcp\
+└── essay_grader\
+    └── server.py    ← 我们要写的文件</pre>
+        </div>
+      </div>
+
+      <!-- Step 3: 写入代码 -->
+      <div style="margin-top:28px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">第三步：逐段写入代码——15分钟</h5>
+        <p>用 Trae（或记事本）打开 <code>server.py</code>，按以下顺序<strong>逐段写入</strong>。每写完一段就保存一次，理解一段再写下一段：</p>
+
+        <div class="prompt-step" style="margin-top:12px;">
+          <span class="prompt-step-num" style="background:var(--success-wash);color:var(--success);">A</span>
+          <div class="prompt-step-content">
+            <strong>导入依赖 & 创建 Server 实例</strong>
+            <p style="font-size:0.82rem;color:var(--muted);">这两行是所有 MCP Server 的"标准开头"，每个项目都一样：</p>
+            <div class="prompt-text">from mcp.server import Server
+
+server = Server("essay-grader")</div>
+            <p style="font-size:0.78rem;color:var(--muted-light);margin-top:4px;">第1行导入 MCP 官方库的 Server 类；第2行创建一个名为 "essay-grader" 的 Server 实例——这个名字会显示在 Trae 的 MCP 面板中。</p>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:12px;">
+          <span class="prompt-step-num" style="background:var(--success-wash);color:var(--success);">B</span>
+          <div class="prompt-step-content">
+            <strong>编写核心逻辑——20% 的"学科专属内容"</strong>
+            <p style="font-size:0.82rem;color:var(--muted);">作文批改 MCP 的核心是读取本地文件——这是 AI 自己做不到的事。先写文件读取功能：</p>
+            <div class="prompt-text">import os
+from pathlib import Path
+
+# 作文评分标准
+GRADING_CRITERIA = {
+    "内容": "主题明确、素材丰富、思想深刻",
+    "语言": "表达流畅、修辞恰当、词汇丰富",
+    "结构": "层次清晰、过渡自然、首尾呼应",
+    "卷面": "字迹工整、格式规范、无错别字"
+}
+
+def read_essays_from_folder(folder_path: str) -> dict:
+    """读取文件夹中所有学生作文"""
+    essays = {}
+    for file in Path(folder_path).glob("*.txt"):
+        essays[file.name] = file.read_text(encoding="utf-8")
+    return essays</div>
+            <p style="font-size:0.78rem;color:var(--muted-light);margin-top:4px;">关键点：<code>Path(folder_path).glob("*.txt")</code> 遍历文件夹中所有 .txt 文件，然后逐个读取内容。这就是 AI 做不到的事——直接访问你的文件系统。</p>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:12px;">
+          <span class="prompt-step-num" style="background:var(--success-wash);color:var(--success);">C</span>
+          <div class="prompt-step-content">
+            <strong>定义第一个工具——读取作文文件夹</strong>
+            <p style="font-size:0.82rem;color:var(--muted);">用 <code>@server.tool()</code> 装饰器标记函数，AI 就能"看到"并调用它来读取你电脑上的文件：</p>
+            <div class="prompt-text">@server.tool()
+async def read_essays_from_folder(folder_path: str) -> dict:
+    """读取指定文件夹中所有学生作文（.txt文件），返回文件名和内容"""
+    essays = {}
+    for file in Path(folder_path).glob("*.txt"):
+        essays[file.name] = file.read_text(encoding="utf-8")
+    return {
+        "文件夹": folder_path,
+        "作文数量": len(essays),
+        "作文列表": essays
+    }</div>
+            <p style="font-size:0.78rem;color:var(--muted-light);margin-top:4px;">① <code>@server.tool()</code> 告诉 MCP"这是一个工具"；② 函数名就是工具名；③ 三引号内的描述决定 AI 何时调用它；④ 参数 <code>folder_path</code> 让 AI 知道需要你提供作文文件夹路径。</p>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:12px;">
+          <span class="prompt-step-num" style="background:var(--success-wash);color:var(--success);">D</span>
+          <div class="prompt-step-content">
+            <strong>定义第二个工具——逐篇批改作文</strong>
+            <div class="prompt-text">@server.tool()
+async def grade_essay(essay_text: str, student_name: str = "") -> dict:
+    """批改一篇作文——根据评分标准给出分项评分、总评语和修改建议"""
+    return {
+        "学生": student_name,
+        "字数": len(essay_text),
+        "评分维度": {
+            "内容": "由AI根据GRADING_CRITERIA判断并打分（满分25）",
+            "语言": "由AI根据GRADING_CRITERIA判断并打分（满分25）",
+            "结构": "由AI根据GRADING_CRITERIA判断并打分（满分25）",
+            "卷面": "由AI根据GRADING_CRITERIA判断并打分（满分25）"
+        },
+        "总分": "由AI汇总四项得分",
+        "总评语": "由AI生成个性化评语",
+        "修改建议": "由AI给出具体改进方向"
+    }</div>
+            <p style="font-size:0.78rem;color:var(--muted-light);margin-top:4px;">参数 <code>student_name: str = ""</code> 中的 <code>= ""</code> 表示可选——AI 可以不传学生姓名。AI 拿到作文文本后，会按 GRADING_CRITERIA 标准逐项打分并生成评语。</p>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:12px;">
+          <span class="prompt-step-num" style="background:var(--success-wash);color:var(--success);">E</span>
+          <div class="prompt-step-content">
+            <strong>定义第三个工具 & 添加启动入口</strong>
+            <div class="prompt-text">@server.tool()
+async def export_grading_report(results: dict, output_path: str) -> str:
+    """将批改结果保存为文本报告——生成真实文件，可直接打开查看"""
+    lines = ["===== 作文批改报告 =====\n"]
+    for name, result in results.items():
+        lines.append(f"【{name}】")
+        for key, val in result.items():
+            lines.append(f"  {key}：{val}")
+        lines.append("")
+    Path(output_path).write_text("\n".join(lines), encoding="utf-8")
+    return f"报告已保存至 {output_path}，可直接打开查看"
+
+if __name__ == "__main__":
+    server.run()</div>
+            <p style="font-size:0.78rem;color:var(--muted-light);margin-top:4px;">最后两行是固定的——每个 MCP Server 文件必须以这段结尾。<code>Path(output_path).write_text(...)</code> 是文件写入操作——AI 自己做不到这件事，但 MCP 可以。<code>if __name__ == "__main__"</code> 是 Python 标准写法。</p>
+          </div>
+        </div>
+
+        <p style="margin-top:16px;">现在 <code>server.py</code> 完整代码如下（约50行）：</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># essay_grader/server.py —— 完整代码</span>
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+<span class="kw">from</span> mcp.server <span class="kw">import</span> Server
+
+server = Server(<span class="str">"essay-grader"</span>)
+
+GRADING_CRITERIA = {
+    <span class="str">"内容"</span>: <span class="str">"主题明确、素材丰富、思想深刻"</span>,
+    <span class="str">"语言"</span>: <span class="str">"表达流畅、修辞恰当、词汇丰富"</span>,
+    <span class="str">"结构"</span>: <span class="str">"层次清晰、过渡自然、首尾呼应"</span>,
+    <span class="str">"卷面"</span>: <span class="str">"字迹工整、格式规范、无错别字"</span>
+}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">read_essays_from_folder</span>(folder_path: str) -> dict:
+    <span class="str">"""读取文件夹中所有学生作文（.txt文件），返回文件名和内容"""</span>
+    essays = {}
+    <span class="kw">for</span> file <span class="kw">in</span> Path(folder_path).glob(<span class="str">"*.txt"</span>):
+        essays[file.name] = file.read_text(encoding=<span class="str">"utf-8"</span>)
+    <span class="kw">return</span> {<span class="str">"作文数量"</span>: len(essays), <span class="str">"作文列表"</span>: essays}
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">grade_essay</span>(essay_text: str, student_name: str = <span class="str">""</span>) -> dict:
+    <span class="str">"""批改一篇作文——根据评分标准给出分项评分和修改建议"""</span>
+    <span class="kw">return</span> {
+        <span class="str">"学生"</span>: student_name,
+        <span class="str">"字数"</span>: len(essay_text),
+        <span class="str">"评分"</span>: <span class="str">"由AI按标准打分"</span>,
+        <span class="str">"评语"</span>: <span class="str">"由AI生成"</span>
+    }
+
+<span class="kw">@server.tool</span>()
+<span class="kw">async def</span> <span class="fn">export_grading_report</span>(results: dict, output_path: str) -> str:
+    <span class="str">"""将批改结果保存为文本报告文件"""</span>
+    lines = [<span class="str">"===== 作文批改报告 =====\n"</span>]
+    <span class="kw">for</span> name, result <span class="kw">in</span> results.items():
+        lines.append(<span class="str">f"【{name}】"</span>)
+        <span class="kw">for</span> key, val <span class="kw">in</span> result.items():
+            lines.append(<span class="str">f"  {key}：{val}"</span>)
+    Path(output_path).write_text(<span class="str">"\n"</span>.join(lines), encoding=<span class="str">"utf-8"</span>)
+    <span class="kw">return</span> <span class="str">f"报告已保存至 {output_path}"</span>
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    server.run()</pre>
+        </div>
+      </div>
+
+      <!-- Step 4: 本地测试 -->
+      <div style="margin-top:28px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">第四步：本地测试——验证代码能跑通——10分钟</h5>
+        <p>在接入 Trae 之前，先用 <strong>MCP Inspector</strong>（官方调试工具）验证代码没有语法错误：</p>
+        <div class="code-block" style="margin-left:0; margin-top:12px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 在终端中执行（确保当前目录是 C:\my-mcp\essay_grader\）</span>
+npx @anthropic-ai/mcp-inspector python server.py
+
+<span class="cm"># 首次运行会提示安装，输入 y 确认即可</span>
+<span class="cm"># 成功后会显示一个本地网址，在浏览器中打开即可测试</span></pre>
+        </div>
+        <div style="margin-top:12px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+          <div class="info-card">
+            <h4>Inspector 中看到什么？</h4>
+            <p>左侧列出你的三个工具：<code>read_essays_from_folder</code>、<code>grade_essay</code>、<code>export_grading_report</code>。点击工具名 → 输入参数 → 点"Run"查看返回结果。</p>
+          </div>
+          <div class="info-card">
+            <h4>如果报错怎么办？</h4>
+            <p>① 检查大小写（Server 的 S 大写）；② 检查缩进（Python 严格4空格）；③ 检查引号是否成对；④ 把报错信息发给 AI 让它帮你修。</p>
+          </div>
+          <div class="info-card">
+            <h4>推荐测试输入</h4>
+            <p><strong>read_essays_from_folder</strong> → folder_path: "D:/作文/期中"<br><strong>grade_essay</strong> → essay_text: "（粘贴一篇作文）", student_name: "张三"<br><strong>export_grading_report</strong> → results: "（批改结果）", output_path: "D:/作文/报告.txt"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: 接入 Trae -->
+      <div style="margin-top:28px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">第五步：接入 Trae——让 AI 用上你的工具——10分钟</h5>
+
+        <div class="prompt-step" style="margin-top:12px;">
+          <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">1</span>
+          <div class="prompt-step-content">
+            <strong>找到 Trae 的 MCP 配置文件</strong>
+            <p style="font-size:0.82rem;color:var(--muted);">Trae 中：左下角齿轮图标（设置）→ 搜索"MCP"→ 点击"打开 MCP 配置文件"。这会打开一个 JSON 文件。</p>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:8px;">
+          <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">2</span>
+          <div class="prompt-step-content">
+            <strong>添加你的 MCP Server</strong>
+            <div class="prompt-text">{
+  "mcpServers": {
+    "essay-grader": {
+      "command": "python",
+      "args": ["C:/my-mcp/essay_grader/server.py"],
+      "description": "语文——作文批量批改、文件读取、报告导出"
+    }
+  }
+}</div>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:8px;">
+          <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">3</span>
+          <div class="prompt-step-content">
+            <strong>重启 Trae & 检查状态灯</strong>
+            <p style="font-size:0.82rem;color:var(--muted);">保存配置 → 重启 Trae → MCP 面板中 <code>essay-grader</code> 旁应显示<strong>绿色圆点</strong>。红色则检查：Python安装？mcp包安装？路径是否正确？</p>
+          </div>
+        </div>
+
+        <div class="prompt-step" style="margin-top:8px;">
+          <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">4</span>
+          <div class="prompt-step-content">
+            <strong>在对话中验证</strong>
+            <p style="font-size:0.82rem;color:var(--muted);">在 Trae 中输入以下测试语句，观察 AI 是否调用了你的工具：</p>
+            <div class="prompt-text">帮我查一下《春望》的作者和朝代。
+"国破山河在"中的"国"是什么意思？
+给七年级学生出几道关于《春望》的阅读理解题。</div>
+            <p style="font-size:0.78rem;color:var(--muted-light);margin-top:4px;">如果 AI 回复中引用了你数据库的精确内容（比如准确说出"杜甫""忧国伤时"），说明 MCP 已成功工作。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: 举一反三 -->
+      <div style="margin-top:28px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">第六步：举一反三——替换为你学科的内容——10分钟</h5>
+        <p>完成作文批改 MCP 后，回头看前面第三节的六大学科代码示例，核心规律就是<strong>替换 20% 的学科专属逻辑</strong>：</p>
+        <div class="cards-grid" style="padding-left:0; margin-top:12px;">
+          <div class="info-card">
+            <h4>你要改的（20%）</h4>
+            <p>① Server 名称<br>② 核心功能逻辑（读文件/算数学/生成音频...）<br>③ 工具函数名和参数<br>④ 工具的描述文字</p>
+          </div>
+          <div class="info-card">
+            <h4>不用改的（80%）</h4>
+            <p>① from mcp.server import Server<br>② server = Server(...)<br>③ @server.tool() 装饰器<br>④ async def 和类型标注<br>⑤ if __name__ == "__main__" 启动入口</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 调试 FAQ -->
+      <div style="margin-top:28px;">
+        <h5 style="color:var(--ink); margin-bottom:8px;">常见问题排查</h5>
+        <div style="margin-top:12px; padding:12px 16px; background:rgba(196,69,54,0.05); border-radius:8px; font-size:0.82rem; color:var(--accent);">
+          <strong>Q: pip install mcp 报错 "Could not find a version"？</strong><br>
+          A: Python 版本需 ≥ 3.10。用 <code>python --version</code> 检查，版本过低去 python.org 下载新版。
+        </div>
+        <div style="margin-top:8px; padding:12px 16px; background:rgba(196,69,54,0.05); border-radius:8px; font-size:0.82rem; color:var(--accent);">
+          <strong>Q: MCP Inspector 打不开？</strong><br>
+          A: 需要先安装 Node.js（nodejs.org 下载 LTS 版本）。<code>npx</code> 是 Node.js 自带的包执行器，不需要额外安装。
+        </div>
+        <div style="margin-top:8px; padding:12px 16px; background:rgba(196,69,54,0.05); border-radius:8px; font-size:0.82rem; color:var(--accent);">
+          <strong>Q: Trae 显示 MCP 连接失败（红色状态灯）？</strong><br>
+          A: 在终端手动运行 <code>python C:/my-mcp/essay_grader/server.py</code> 看报错。90% 是：路径写错、缩进不对、引号不匹配。
+        </div>
+        <div style="margin-top:8px; padding:12px 16px; background:rgba(196,69,54,0.05); border-radius:8px; font-size:0.82rem; color:var(--accent);">
+          <strong>Q: AI 没调用我的工具，用自己的知识回答了？</strong><br>
+          A: 工具描述（三引号内的文字）要清晰说明"何时调用"。试着写得更具体，例如："当用户要求批改作文文件夹中的文件时，使用此工具读取文件夹中所有 .txt 文件的内容。"
+        </div>
+      </div>
+
+      <div class="tip-box green" style="margin-top:20px;">核心心法：<strong>先跑通一个最简版本，再逐步丰富功能</strong>——不要一上来就想做完美。跑通第一个后，信心就有了。</div>
+    </div>
+  </div>
+
+  <!-- 2.5 GitHub MCP 实战——用 AI 管理教学网站代码 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">5</span>GitHub MCP 实战——用 AI 管理你的代码 <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~30分钟</span></h3>
+    <div class="subsection-body">
+      <p>MCP 生态中有一个<strong>官方维护的 GitHub MCP Server</strong>，它让 AI 可以直接操作 GitHub——创建仓库、推送代码、拉取更新、管理 Issue，这些事 AI 自己<strong>绝对做不到</strong>。对于老师来说，这意味着：<strong>用中文对话就能管理你的教学网站代码，不需要记任何 git 命令</strong>。</p>
+
+      <div style="margin-top:20px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid var(--jade);">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">第一步：获取 GitHub Personal Access Token</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">这个 Token 是 AI 操作 GitHub 的"钥匙"——只存在你电脑上，不会上传。</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 获取 Token 的操作步骤（浏览器中完成）</span>
+1. 打开 GitHub → 右上角头像 → Settings
+2. 左侧菜单最底部 → Developer settings
+3. Personal access tokens → Tokens (classic) → Generate new token
+4. 勾选权限（教学网站所需的最小权限）：
+   ✓ repo（完整的仓库读写权限——推送代码必需）
+   ✓ workflow（如果需要 GitHub Actions 自动部署）
+5. 点击 Generate token → <strong>立即复制保存！</strong>（离开页面后不可再见）
+<span class="cm"># Token 格式类似：ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></pre>
+        </div>
+        <div class="tip-box green" style="margin-top:10px;"><strong>安全提示：</strong>Token 就像密码，不要发给任何人，也不要写进代码里。它只保存在 Trae 的 MCP 配置文件中（纯本地）。</div>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid var(--jade);">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">第二步：配置 GitHub MCP Server</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">打开 Trae 的 MCP 配置文件（左下角齿轮 → MCP → 打开配置文件），添加 GitHub MCP：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm">// .trae/mcp.json —— 添加 GitHub MCP Server</span>
+{
+  <span class="str">"mcpServers"</span>: {
+    <span class="cm">// ... 你之前配置的其他 MCP ...</span>
+    <span class="str">"github"</span>: {
+      <span class="str">"command"</span>: <span class="str">"npx"</span>,
+      <span class="str">"args"</span>: [<span class="str">"-y"</span>, <span class="str">"@anthropic-ai/mcp-server-github"</span>],
+      <span class="str">"env"</span>: {
+        <span class="str">"GITHUB_PERSONAL_ACCESS_TOKEN"</span>: <span class="str">"ghp_你的Token填这里"</span>
+      }
+    }
+  }
+}</pre>
+        </div>
+        <p style="font-size:0.82rem;color:var(--stone);margin-top:8px;">配置说明：<code>@anthropic-ai/mcp-server-github</code> 是官方包，<code>npx -y</code> 会自动下载并运行。保存配置后重启 Trae，MCP 面板中出现绿色 <code>github</code> 即表示连接成功。</p>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid var(--vermillion);">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">实战一：把教学网站推送到 GitHub</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">配置好 GitHub MCP 后，你只需要用中文告诉 AI，AI 就会通过 MCP 一步步操作 GitHub：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 你可以这样对 AI 说（在 Trae 对话框里用中文即可）</span>
+
+<span class="str">"帮我把 C:\Users\lhh\Desktop\Vibe Coding 这个文件夹
+推送到 GitHub，仓库名叫 ai-teaching-website，
+描述写'AI辅助教学系列课程网站'，设为公开仓库。"</span>
+
+<span class="cm"># AI 通过 GitHub MCP 会自动执行：</span>
+1. 检查 GitHub 上是否已有同名仓库 → 没有就创建一个
+2. 初始化 git 仓库（git init）
+3. 添加所有文件（git add .）
+4. 创建第一个提交（git commit -m "初始版本"）
+5. 关联远程仓库（git remote add origin ...）
+6. 推送到 GitHub（git push -u origin main）
+<span class="cm"># 整个过程你只需要说一句话，不用敲任何命令</span></pre>
+        </div>
+        <p style="font-size:0.82rem;color:var(--stone);margin-top:8px;">你甚至可以说得更具体：<code>"先推送 index.html 和 css 文件夹，其他的等一下再推"</code> —— AI 会按你的指令逐步操作。</p>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #2196F3;">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">实战二：从 GitHub 拉取 / 克隆教学网站</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">换电脑了？同事分享了他们的教学网站？用 GitHub MCP 一键拉取：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 场景1：把已有仓库克隆到本地</span>
+<span class="str">"帮我把 github.com/我的用户名/ai-teaching-website
+克隆到 D:\教学网站 文件夹"</span>
+
+<span class="cm"># 场景2：拉取最新版本（团队协作时）</span>
+<span class="str">"帮我把 D:\教学网站 目录更新到 GitHub 上的最新版本"</span>
+
+<span class="cm"># 场景3：查看同事更新了什么</span>
+<span class="str">"帮我看看 ai-teaching-website 仓库最近有哪些更新，
+把改动总结一下"</span>
+
+<span class="cm"># AI 通过 GitHub MCP 自动执行对应的 git 命令：</span>
+- git clone → 下载整个仓库
+- git pull → 拉取最新改动
+- git log → 查看提交历史</pre>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:rgba(45,125,95,0.05); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="font-size:0.95rem; margin-bottom:8px; color:var(--ink);">GitHub MCP 对教师的实际价值</h5>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>场景</th><th>没有 MCP 时</th><th>有了 GitHub MCP 后</th></tr></thead>
+            <tbody>
+              <tr><td>保存教学网站代码</td><td>学会 git add / commit / push 一系列命令</td><td>说一句"帮我把网站推送到 GitHub"</td></tr>
+              <tr><td>换电脑继续工作</td><td>用U盘拷贝，版本混乱</td><td>说一句"帮我把网站克隆到新电脑"</td></tr>
+              <tr><td>分享给其他老师</td><td>打包发压缩包，更新后重新发</td><td>对方直接克隆你的仓库，随时同步更新</td></tr>
+              <tr><td>回退到之前版本</td><td>手动备份多个副本（网站v1/网站v2/...）</td><td>说一句"帮我恢复到上周二的版本"</td></tr>
+              <tr><td>查看修改历史</td><td>不记得改了什么</td><td>说一句"帮我看看这个月网站有哪些变化"</td></tr>
+              <tr><td>团队协作备课</td><td>各自修改，手动合并</td><td>各自推送，AI 辅助处理冲突</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.82rem;color:var(--stone);margin-top:8px;">核心心得：<strong>GitHub MCP 把"学 git 命令"变成了"用中文对话"</strong>——老师不需要成为程序员，只需要知道自己想做什么，AI 负责执行。</p>
+      </div>
+
+      <!-- Gitee 补充 -->
+      <h5 style="color:var(--ink); margin:28px 0 10px; font-size:0.95rem;">国内加速方案：用 Gitee（码云）托管教学网站</h5>
+      <p>GitHub 在国内访问速度不稳定，<strong>Gitee（码云）</strong> 是国内最主流的代码托管平台，速度快、全中文界面、不需要翻墙。对于国内教师来说，<strong>Gitee 是更实用的选择</strong>。</p>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #C71D23;">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">第一步：在 Gitee 上创建仓库</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">浏览器操作，3 分钟完成：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 在浏览器中操作（全程中文界面）</span>
+1. 打开 gitee.com → 注册 / 登录账号
+2. 右上角点击 "+" → "新建仓库"
+3. 填写仓库信息：
+   仓库名称：ai-teaching-website
+   仓库介绍：AI辅助教学系列课程网站
+   是否开源：选择"公开"（方便后续分享）
+   ✓ 勾选"使用 Readme 文件初始化仓库"（可选）
+4. 点击"创建"按钮 → 完成！
+<span class="cm"># 创建完成后，复制仓库地址：https://gitee.com/你的用户名/ai-teaching-website.git</span></pre>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #C71D23;">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">第二步：通过 MCP 推送网站到 Gitee</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">推送代码到 Gitee 的核心操作和 GitHub 一样都是 git 命令。你可以<strong>直接对 AI 说中文</strong>，AI 会通过终端执行 git 操作：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 在 Trae 对话框中直接这样说：</span>
+
+<span class="str">"帮我把 C:\Users\lhh\Desktop\Vibe Coding 这个文件夹
+推送到 Gitee，仓库地址是
+https://gitee.com/我的用户名/ai-teaching-website.git"</span>
+
+<span class="cm"># AI 会自动在终端中执行以下 git 命令：</span>
+cd C:\Users\lhh\Desktop\<span class="str">"Vibe Coding"</span>
+git init                                          <span class="cm"># 初始化 git 仓库</span>
+git add .                                         <span class="cm"># 添加所有文件</span>
+git commit -m <span class="str">"初始版本：AI辅助教学系列课程网站"</span>    <span class="cm"># 创建提交</span>
+git remote add origin https://gitee.com/你的用户名/ai-teaching-website.git
+git push -u origin master                         <span class="cm"># 推送到 Gitee（注意：Gitee 默认分支叫 master）</span>
+
+<span class="cm"># 首次推送可能需要输入 Gitee 用户名和密码</span>
+<span class="cm"># AI 会一步步引导你完成，你只需要在提示时输入账号密码</span></pre>
+        </div>
+        <div class="tip-box green" style="margin-top:10px;"><strong>提示：</strong>Gitee 默认主分支叫 <code>master</code>（GitHub 叫 <code>main</code>）。如果 AI 推送时报错，提醒它"Gitee 用 master 分支"即可。</div>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #C71D23;">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">第三步：后续更新——修改网站后重新推送</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">每次修改完网站内容后，只需要对 AI 说一句话：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># 日常更新——在 Trae 对话框中这样说：</span>
+
+<span class="str">"帮我把最新的改动推送到 Gitee"</span>
+
+<span class="cm"># AI 自动执行：</span>
+git add .
+git commit -m <span class="str">"更新了第二讲的MCP案例内容"</span>
+git push origin master</pre>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #C71D23;">
+        <h5 style="font-size:0.95rem; margin-bottom:6px; color:var(--ink);">第四步：启用 Gitee Pages——让网站公网可访问</h5>
+        <p style="font-size:0.85rem; color:var(--stone);">Gitee 提供免费的静态网站托管服务（Gitee Pages），推送代码后可以让你的教学网站<strong>通过网址直接访问</strong>，学生和同事用浏览器就能打开：</p>
+        <div class="code-block" style="margin-left:0; margin-top:10px;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="cm"># Gitee Pages 部署步骤（浏览器操作）</span>
+1. 打开你的 Gitee 仓库页面
+2. 顶部菜单 → "服务" → "Gitee Pages"
+3. 部署分支：选择 master
+4. 部署目录：留空（使用根目录）
+5. 点击"启动"→ 等待几秒钟
+<span class="cm"># 部署成功后，你会得到一个网址：</span>
+<span class="cm"># https://你的用户名.gitee.io/ai-teaching-website</span>
+<span class="cm"># 把这个网址发给学生，他们就能直接访问你的教学网站了！</span></pre>
+        </div>
+        <div class="tip-box green" style="margin-top:10px;">每次 <code>git push</code> 更新代码后，Gitee Pages 会<strong>自动重新部署</strong>——你只需要推送，网站就自动更新了，不需要手动操作。</div>
+      </div>
+
+      <div style="margin-top:16px; padding:20px; background:rgba(199,29,35,0.04); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="font-size:0.95rem; margin-bottom:8px; color:var(--ink);">GitHub vs Gitee —— 教师选哪个？</h5>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>对比维度</th><th>GitHub</th><th>Gitee（码云）</th></tr></thead>
+            <tbody>
+              <tr><td>访问速度</td><td>国内较慢，偶尔打不开</td><td>国内秒开，稳定快速</td></tr>
+              <tr><td>界面语言</td><td>英文为主</td><td>全中文</td></tr>
+              <tr><td>MCP 支持</td><td>有官方 MCP Server（@anthropic-ai/mcp-server-github）</td><td>暂无官方 MCP，通过终端 git 命令操作</td></tr>
+              <tr><td>静态托管</td><td>GitHub Pages</td><td>Gitee Pages（国内访问更快）</td></tr>
+              <tr><td>社区与生态</td><td>全球最大，资源最多</td><td>国内最大，中文资源丰富</td></tr>
+              <tr><td>隐私与合规</td><td>服务器在海外</td><td>服务器在国内，符合数据合规要求</td></tr>
+              <tr><td>推荐场景</td><td>想用 MCP 全自动操作、英文 OK 的老师</td><td>追求稳定快速、中文界面、国内分享的老师</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.82rem;color:var(--stone);margin-top:8px;"><strong>建议：两个都配！</strong>GitHub 用作主力开发（配合 MCP 自动操作），Gitee 用作国内镜像（方便学生访问）。只需要在同一个本地仓库添加两个远程地址即可——对 AI 说"帮我把代码同时推送到 GitHub 和 Gitee"即可。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.6 MCP 多服务管理与进阶 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">6</span>MCP 多服务管理——同时运行多个学科工具 <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~15分钟</span></h3>
+    <div class="subsection-body">
+      <p>搭建完第一个 MCP 之后，你可以<strong>同时配置多个学科的 MCP Server</strong>。Trae 会自动加载所有已配置的服务，AI 根据你的问题智能选择调用哪个工具。</p>
+
+      <h5 style="color:var(--ink); margin:16px 0 10px; font-size:0.95rem;">多 MCP 配置示例</h5>
+      <p style="font-size:0.85rem;color:var(--muted);">假设你已经为语文、数学、英语三个学科都创建了 MCP Server，配置文件如下：</p>
+      <div class="code-block" style="margin-left:0; margin-top:12px;">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <pre><span class="cm">// .trae/mcp.json —— 同时配置多个 MCP Server</span>
+{
+  <span class="str">"mcpServers"</span>: {
+    <span class="str">"essay-grader"</span>: {
+      <span class="str">"command"</span>: <span class="str">"python"</span>,
+      <span class="str">"args"</span>: [<span class="str">"C:/my-mcp/essay_grader/server.py"</span>],
+      <span class="str">"description"</span>: <span class="str">"语文——作文批改、文件读取、报告导出"</span>
+    },
+    <span class="str">"math-exam"</span>: {
+      <span class="str">"command"</span>: <span class="str">"python"</span>,
+      <span class="str">"args"</span>: [<span class="str">"C:/my-mcp/math_exam_mcp/server.py"</span>],
+      <span class="str">"description"</span>: <span class="str">"数学——自动出题、精准批改、成绩统计"</span>
+    },
+    <span class="str">"dictation-tracker"</span>: {
+      <span class="str">"command"</span>: <span class="str">"python"</span>,
+      <span class="str">"args"</span>: [<span class="str">"C:/my-mcp/dictation_tracker/server.py"</span>],
+      <span class="str">"description"</span>: <span class="str">"英语——音频生成、听写追踪、错词复习"</span>
+    }
+  }
+}</pre>
+      </div>
+
+      <div style="margin-top:16px; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
+        <div class="info-card">
+          <h4>自动路由</h4>
+          <p>说"查一下《春望》"→ 自动调语文 MCP；说"解方程 x²+3x+2=0"→ 自动调数学 MCP。无需手动切换。</p>
+        </div>
+        <div class="info-card">
+          <h4>按需加载</h4>
+          <p>不是每次对话都加载所有 MCP——AI 只在需要时激活对应的 Server，不影响性能。</p>
+        </div>
+        <div class="info-card">
+          <h4>独立管理</h4>
+          <p>每个 MCP Server 独立运行、互不影响。修改语文数据库无需重启数学的 MCP。</p>
+        </div>
+      </div>
+
+      <div class="tip-box red" style="margin-top:16px;">
+        <strong>踩坑提醒：</strong>路径必须使用<strong>绝对路径</strong>（不要用 ../ 相对路径）。Windows 路径中推荐用正斜杠 <code>C:/my-mcp/...</code>（JSON 中反斜杠需转义为 <code>\\</code>）。如果多个 MCP 同时启动失败，逐个在终端手动运行排查。
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.7 代码托管 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">7</span>代码托管入门——理解底层原理 <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~30分钟</span></h3>
+    <div class="subsection-body">
+      <div class="tip-box green" style="margin-bottom:16px;"><strong>与上一节的关系：</strong>上一节（2.5 GitHub MCP）展示了用 AI 自动操作 GitHub 的方式——说一句话就完成推送。本节则讲解 Git 的<strong>底层原理和手动操作</strong>——理解这些能让你在 AI 操作出错时知道如何排查。两节互补：<strong>先用 MCP 快速上手，再学原理深入理解</strong>。</div>
+      <p>写完的 MCP 代码需要保存、分享、协作——Git 就是为此而生的工具。<strong>把代码上传到 GitHub 或 Gitee，就像把教案存到云端一样自然。</strong></p>
+
+      <div class="flow-steps" style="margin-top:16px;">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <h4>安装 Git</h4>
+          <p>访问 git-scm.com 下载安装，终端输入 <code>git --version</code> 验证</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <h4>配置身份</h4>
+          <p><code>git config --global user.name "你的姓名"</code><br><code>git config --global user.email "你的邮箱"</code></p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <h4>创建仓库</h4>
+          <p>在 Gitee.com 或 GitHub.com 新建仓库，复制仓库地址</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <h4>推送代码</h4>
+          <p><code>git init → git add → git commit → git push</code> 四连击</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:16px;">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <pre><span class="cm"># 从零到推送——完整操作流程</span>
+
+<span class="cm"># ① 进入你的 MCP 项目目录</span>
+cd ~/my-mcp-server
+
+<span class="cm"># ② 初始化 Git 仓库</span>
+git init
+
+<span class="cm"># ③ 创建 .gitignore 文件（排除不需要上传的文件）</span>
+echo <span class="str">"__pycache__/
+*.pyc
+.env
+.vscode/"</span> > .gitignore
+
+<span class="cm"># ④ 添加文件并提交</span>
+git add .
+git commit -m <span class="str">"feat: 初始版本——语文学科教学 MCP 服务"</span>
+
+<span class="cm"># ⑤ 关联远程仓库（二选一）</span>
+<span class="cm"># Gitee（国内推荐，速度快）</span>
+git remote add origin https://gitee.com/你的用户名/essay-grader-mcp.git
+<span class="cm"># GitHub（国际通用）</span>
+git remote add origin https://github.com/你的用户名/essay-grader-mcp.git
+
+<span class="cm"># ⑥ 推送到远程</span>
+git push -u origin main
+
+<span class="cm"># 完成！你的代码已经在云端了，发给同事一个链接即可分享</span></pre>
+      </div>
+
+      <div class="cards-grid" style="margin-top:16px;">
+        <div class="info-card">
+          <h4>后续更新代码</h4>
+          <p>修改代码后：<code>git add . → git commit -m "描述" → git push</code>，三步即可同步到云端</p>
+        </div>
+        <div class="info-card">
+          <h4>从云端下载</h4>
+          <p>换电脑后：<code>git clone 仓库地址</code>，一键下载全部代码</p>
+        </div>
+        <div class="info-card">
+          <h4>团队协作</h4>
+          <p>多位老师可以共同维护同一个 MCP，各自提交自己的学科工具</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.8 什么是Skill -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">8</span>什么是 Skill？——将经验固化为"一键操作" <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~25分钟</span></h3>
+    <div class="subsection-body">
+      <p><strong>Skill</strong>（技能）是将你的<strong>程序化工作流程</strong>封装为 AI 可以按需调用的能力模块。MCP 是给 AI "接上工具"，Skill 是给 AI "教会流程"。</p>
+
+      <h5 style="color:var(--ink); margin:16px 0 10px; font-size:0.95rem;">MCP vs Skill——什么时候用哪个？</h5>
+      <div class="tools-table-wrap" style="padding-left:0;">
+        <table class="tools-table">
+          <thead><tr><th>对比维度</th><th>MCP</th><th>Skill</th></tr></thead>
+          <tbody>
+            <tr><td><strong>本质</strong></td><td>外部工具连接协议——让 AI 能"动手"</td><td>工作流模板——让 AI 能"按流程走"</td></tr>
+            <tr><td><strong>类比</strong></td><td>USB 接口——连接打印机、扫描仪等外设</td><td>预设菜谱——告诉厨师这道菜分几步做</td></tr>
+            <tr><td><strong>运行方式</strong></td><td>独立进程，通过 JSON-RPC 通信</td><td>嵌入 AI 对话上下文，直接指导行为</td></tr>
+            <tr><td><strong>适合场景</strong></td><td>需要访问数据库、调用 API、读写文件</td><td>标准化的批改流程、模板化的报告生成、多步骤教学流程</td></tr>
+            <tr><td><strong>开发门槛</strong></td><td>需要 Python/JS 编程基础</td><td>用 Markdown 描述流程即可，AI 辅助生成</td></tr>
+            <tr><td><strong>举例</strong></td><td>"帮我查一下'明月'在哪些古诗里出现过"</td><td>"按如下标准批改这篇作文并生成报告"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.9 六学科Skill案例 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num gold">9</span>六大学科 Skill 实战——打造你的"一键批改" <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">⏱ ~45分钟</span></h3>
+    <div class="subsection-body">
+      <p>以下是覆盖六门学科的 Skill 案例。<strong>Skill 的本质就是用 Markdown 写好流程，AI 照着执行。</strong>每一科的 Skill 结构都一样：定义 → 流程 → 标准 → 输出。</p>
+
+      <!-- 语文 Skill -->
+      <div style="margin-top:20px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid var(--vermillion);">
+        <h5 style="font-size:1rem; margin-bottom:4px;">语文：作文批改 + 古诗默写评分 Skill</h5>
+        <p style="font-size:0.8rem; color:var(--stone); margin-bottom:12px;">用途：一键批改作文或古诗默写，按预设标准评分并生成详细反馈</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="kw">---</span>
+<span class="kw">name</span>: essay-grader
+<span class="kw">description</span>: 中学语文作文批改——按中考标准评分，生成详细评语和改进建议
+<span class="kw">---</span>
+
+<span class="cm">## 批改流程（5步）</span>
+<span class="num">1.</span> 通读全文，判断文体（记叙/议论/散文）和学段
+<span class="num">2.</span> 逐项评分：内容立意(25分) + 结构条理(25分) + 语言表达(25分) + 情感真挚(15分) + 书写规范(10分)
+<span class="num">3.</span> 标注亮点：至少3处，引用原文+分析好在哪
+<span class="num">4.</span> 诊断问题：至少2处，指出问题+给出修改示范
+<span class="num">5.</span> 生成报告：总分+分项分+亮点+问题+教师寄语
+
+<span class="cm">## 古诗默写评分标准</span>
+- 每错一字扣1分（同字不重复扣）
+- 诗句顺序错误扣2分
+- 字迹潦草无法辨认按错字处理</pre>
+        </div>
+      </div>
+
+      <!-- 数学 Skill -->
+      <div style="margin-top:16px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #2196F3;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">数学：作业批改 + 解题步骤分析 Skill</h5>
+        <p style="font-size:0.8rem; color:var(--stone); margin-bottom:12px;">用途：自动批改数学计算题，不仅判断对错，还分析学生的解题步骤</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="kw">---</span>
+<span class="kw">name</span>: math-homework-grader
+<span class="kw">description</span>: 初中数学作业批改——逐题判断、步骤分析、错因归类
+<span class="kw">---</span>
+
+<span class="cm">## 批改流程</span>
+<span class="num">1.</span> 逐题核对：对比标准答案，判断最终结果是否正确
+<span class="num">2.</span> 步骤审查：即使答案对，也要检查解题步骤是否完整规范
+<span class="num">3.</span> 错因归类：
+   - 计算错误（粗心）→ 标注"注意验算"
+   - 概念错误（不会）→ 标注"建议复习XX知识点"
+   - 步骤缺失（不规范）→ 标注"缺少XX步骤，中考会扣分"
+<span class="num">4.</span> 生成错题本条目：每道错题一条，包含题目+错误答案+正确解法+知识点标签
+<span class="num">5.</span> 统计报告：正确率、主要失分点、薄弱知识点排行榜</pre>
+        </div>
+      </div>
+
+      <!-- 英语 Skill -->
+      <div style="margin-top:16px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #FF9800;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">英语：作文纠错 + 单词听写批改 Skill</h5>
+        <p style="font-size:0.8rem; color:var(--stone); margin-bottom:12px;">用途：检查英语作文中的语法错误、用词不当，生成纠错报告和单词听写评分</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="kw">---</span>
+<span class="kw">name</span>: english-writing-checker
+<span class="kw">description</span>: 初中英语作文纠错——语法、拼写、用词、句型全面检查
+<span class="kw">---</span>
+
+<span class="cm">## 检查维度</span>
+<span class="num">1.</span> 拼写检查：逐一检查单词拼写，标注正确拼写
+<span class="num">2.</span> 语法检查：主谓一致、时态、冠词、介词、单复数
+<span class="num">3.</span> 用词检查：是否有中式英语？是否能替换为更地道的表达？
+<span class="num">4.</span> 句型丰富度：简单句/复合句比例，建议增加哪些句型
+
+<span class="cm">## 输出格式</span>
+- 原句 → 问题标注 → 修改建议 → 修改后句子
+- 总分 + 分项得分
+- 优秀表达摘录（鼓励学生的好词好句）</pre>
+        </div>
+      </div>
+
+      <!-- 思政 Skill -->
+      <div style="margin-top:16px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #E91E63;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">思政：材料分析题批改 Skill</h5>
+        <p style="font-size:0.8rem; color:var(--stone); margin-bottom:12px;">用途：批改思政材料分析题——判断学生是否准确运用了法律/道德知识点</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="kw">---</span>
+<span class="kw">name</span>: politics-essay-grader
+<span class="kw">description</span>: 初中思政材料分析题批改——知识点匹配、论证逻辑、价值观引导
+<span class="kw">---</span>
+
+<span class="cm">## 批改流程</span>
+<span class="num">1.</span> 知识点识别：学生的回答涉及了哪些教材知识点？
+<span class="num">2.</span> 知识点完整度：该题应涉及的知识点是否全部覆盖？
+<span class="num">3.</span> 论证逻辑：知识→材料→分析 的三步论证是否完整？
+<span class="num">4.</span> 价值导向：回答的价值观是否正确积极？
+
+<span class="cm">## 输出</span>
+- 涉及知识点清单（已答/遗漏）
+- 论证质量评价
+- 参考答案要点对照</pre>
+        </div>
+      </div>
+
+      <!-- 音乐 Skill -->
+      <div style="margin-top:16px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #9C27B0;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">音乐：音乐鉴赏报告评分 Skill</h5>
+        <p style="font-size:0.8rem; color:var(--stone); margin-bottom:12px;">用途：批改学生的音乐鉴赏作业——评价对作品的理解、感受描述和音乐要素分析</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="kw">---</span>
+<span class="kw">name</span>: music-appreciation-grader
+<span class="kw">description</span>: 初中音乐鉴赏报告批改——作品理解、感受表达、乐理分析
+<span class="kw">---</span>
+
+<span class="cm">## 评分维度（满分100）</span>
+- 作品背景理解（30分）：时代背景、作曲家、创作意图
+- 音乐要素分析（35分）：旋律、节奏、速度、力度、音色的描述是否准确
+- 个人感受表达（25分）：是否有真实感受，表达是否生动
+- 书面规范（10分）：格式、字数
+
+<span class="cm">## 输出要求</span>
+不仅打分，还要给学生推荐"这首作品你可能会喜欢的另一首曲子"
+激发学生继续探索音乐的兴趣</pre>
+        </div>
+      </div>
+
+      <!-- 信息科技 Skill -->
+      <div style="margin-top:16px; padding:24px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); border-left:4px solid #00BCD4;">
+        <h5 style="font-size:1rem; margin-bottom:4px;">信息科技：编程作业自动评测 Skill</h5>
+        <p style="font-size:0.8rem; color:var(--stone); margin-bottom:12px;">用途：自动评测学生的 Python 编程作业——检查正确性、代码规范、运行效率</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre><span class="kw">---</span>
+<span class="kw">name</span>: python-code-reviewer
+<span class="kw">description</span>: 初中信息课 Python 作业自动评测——正确性、规范性、效率
+<span class="kw">---</span>
+
+<span class="cm">## 评测流程</span>
+<span class="num">1.</span> 正确性测试：用3-5组测试数据验证代码功能是否正确
+<span class="num">2.</span> 代码规范检查：
+   - 变量命名是否语义化（不用a/b/c/x）
+   - 是否有适当的注释
+   - 缩进是否规范
+<span class="num">3.</span> 效率评价：是否有不必要的重复计算？循环是否可以优化？
+<span class="num">4.</span> 改进建议：给出一条具体的优化方向
+
+<span class="cm">## 输出</span>
+- 编译/运行结果（通过/报错）
+- 测试用例通过率
+- 规范性问题清单
+- 优化建议</pre>
+        </div>
+      </div>
+
+      <!-- 学员选择指南 -->
+      <div style="margin-top:24px; padding:20px; background:rgba(184,150,62,0.06); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="color:var(--ink); margin-bottom:12px; font-size:0.95rem;">学员动手——为你的学科创建一个 Skill</h5>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:8px;">Skill 的创建比 MCP 更简单——<strong>你只需要用自然语言描述清楚你想要的流程</strong>，AI 就能帮你生成完整的 Skill 定义文件。选择一个方向：</p>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>学科</th><th>推荐 Skill</th><th>一句话描述</th></tr></thead>
+            <tbody>
+              <tr><td>语文</td><td>作文批改 Skill</td><td>"按中考五维度标准批改作文，生成改评报告"</td></tr>
+              <tr><td>数学</td><td>作业批改 Skill</td><td>"逐题核对答案，分析错因，生成错题本"</td></tr>
+              <tr><td>英语</td><td>作文纠错 Skill</td><td>"检查语法拼写，标注中式英语，给出地道表达"</td></tr>
+              <tr><td>思政</td><td>材料分析 Skill</td><td>"检查知识点覆盖，评价论证逻辑，对照参考答案"</td></tr>
+              <tr><td>音乐</td><td>鉴赏评分 Skill</td><td>"评价作品理解、乐理分析、感受表达，推荐延伸曲目"</td></tr>
+              <tr><td>信息</td><td>代码评测 Skill</td><td>"测试代码正确性，检查规范，给出优化建议"</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.82rem; color:var(--stone); margin-top:8px;">讲师提示：给学员20分钟，选择自己学科参考上面的模板创建 Skill。然后在 Trae 中测试："用我刚创建的 XX Skill 批改这篇作业"。</p>
+      </div>
+
+      <!-- 配置清单 -->
+      <div style="margin-top:24px; padding:20px; background:linear-gradient(135deg,rgba(184,150,62,0.05),rgba(91,140,90,0.05)); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="color:var(--ink); margin-bottom:12px; font-size:0.95rem;">第二讲完成清单</h5>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; font-size:0.82rem;">
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--gold);">MCP 部分</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>理解了 MCP 的概念和原理</li>
+              <li>掌握了 MCP 通用代码模板</li>
+              <li>选择了学科并搭建了 MCP</li>
+              <li>在 Trae 中配置并测试成功</li>
+            </ul>
+          </div>
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--gold);">Git 部分</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>安装了 Git 并配置身份</li>
+              <li>初始化仓库并完成首次提交</li>
+              <li>代码已推送到 Gitee/GitHub</li>
+            </ul>
+          </div>
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--gold);">Skill 部分</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>理解了 Skill 与 MCP 的区别</li>
+              <li>为本学科创建了一个 Skill</li>
+              <li>在 Trae 中测试了 Skill 效果</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ── Navigation Buttons ── -->
+<div style="max-width:var(--max-width); margin:0 auto; padding:0 24px 48px; display:flex; justify-content:space-between; position:relative; z-index:1;">
+  <a href="lecture1.html" class="btn btn-outline">第一讲</a>
+  <a href="lecture3.html" class="btn btn-outline">第三讲</a>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <p style="font-family:'Noto Serif SC',serif; font-weight:600; margin-bottom:4px;">从智能体到教学网站：AI 辅助教学构建实战三部曲</p>
+  <p>面向教师的 AI 赋能系列课程 · 四讲掌握 AI 教学工具链</p>
+</footer>
+
+<!-- ── Back to top ── -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// Scroll-aware navigation
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+function onScroll() {
+  const scrollY = window.scrollY;
+
+  // Nav shadow
+  if (scrollY > 10) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+
+  // Back to top visibility
+  if (scrollY > 600) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// Back to top
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Mobile menu toggle
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinksEl = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinksEl.classList.toggle('mobile-open');
+});
+
+// Close mobile menu on link click
+navLinksEl.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinksEl.classList.remove('mobile-open');
+  });
+});
+</script>
+
+</body>
+</html>

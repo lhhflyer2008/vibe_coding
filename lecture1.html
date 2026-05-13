@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一讲：教学网站自己做——项目式学习与新一代AI编码工具实战</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════ Navigation ═══════════════════ -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">AI<span>×</span>教学</a>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">课程首页</a></li>
+      <li><a href="lecture1.html" class="active">第一讲</a></li>
+      <li><a href="lecture2.html">第二讲</a></li>
+      <li><a href="lecture3.html">第三讲</a></li>
+      <li><a href="lecture4.html">第四讲</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════ Page Header ═══════════════════ -->
+<header class="page-header">
+  <div class="hero-badge">第一讲</div>
+  <h1 style="font-family:'Noto Serif SC',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.35;color:var(--ink);max-width:800px;margin:0 auto 16px;">教学网站<em style="font-style:normal;color:var(--vermillion);">自己做</em></h1>
+  <p class="hero-subtitle">项目式学习与新一代AI编码工具实战——零基础教师也能独立打造交互式教学网站</p>
+  <div class="hero-decor">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/></svg>
+  </div>
+</header>
+
+<!-- ═══════════════════ Section Content ═══════════════════ -->
+<section class="section">
+
+  <!-- ── 1.1 人工智能的革新——AI不只是聊天 ── -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num red">1.1</span>人工智能的革新——AI不只是聊天</h3>
+    <div class="subsection-body">
+      <p>当大多数人还在把AI当作一个"聊天机器人"时，人工智能的能力边界已经远远超出了文字对话的范畴。从文本生成到视频创作，从辅助编程到自主决策，AI正在以六种核心能力重塑教育工作的每一个环节。</p>
+    </div>
+    <div class="cards-grid">
+      <div class="info-card">
+        <h4>文生文</h4>
+        <p>撰写教案、设计习题、批改作文、生成课堂逐字稿。代表工具：ChatGPT、文心一言、DeepSeek、Kimi。</p>
+      </div>
+      <div class="info-card">
+        <h4>文生图</h4>
+        <p>生成教学插图、知识图谱、思维导图、板书设计。代表工具：Midjourney、DALL·E、通义万相。</p>
+      </div>
+      <div class="info-card">
+        <h4>文生声音</h4>
+        <p>生成课文朗读、英语听力材料、多语种配音、课堂背景音效。代表工具：豆包TTS、剪映配音、Fish Audio。</p>
+      </div>
+      <div class="info-card">
+        <h4>文生视频</h4>
+        <p>制作微课视频、知识动画、实验演示、历史场景还原。代表工具：Sora、可灵、即梦、剪映AI。</p>
+      </div>
+      <div class="info-card">
+        <h4>文生代码</h4>
+        <p>创建教学网站、交互式演示、自动批改工具、数据分析脚本。代表工具：Trae、Claude Code、Cursor、GitHub Copilot。</p>
+      </div>
+      <div class="info-card">
+        <h4>智能体</h4>
+        <p>搭建自动答疑机器人、个性化学习助手、作业批改Bot、教务管理系统。代表工具：Coze、Dify、Manus。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 1.2 人工智能的演变——从GPT到智能体 ── -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num red">1.2</span>人工智能的演变——从GPT到智能体</h3>
+    <div class="subsection-body">
+      <p>人工智能的发展经历了四个关键阶段，每个阶段都对应着不同的能力和教学应用场景。理解这个演进路线，有助于教师把握AI工具的核心价值，选择最合适的工具解决教学中的实际问题。</p>
+
+      <div class="flow-steps">
+        <!-- Stage 1: 对话式AI -->
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <h4>对话式AI</h4>
+          <p style="font-size:0.75rem;color:var(--stone);margin-bottom:4px;">2022 — 2023</p>
+          <p>以ChatGPT、文心一言、DeepSeek为代表的大语言模型，能够理解自然语言并进行多轮对话。可以撰写教案、设计练习题、润色文本、翻译资料。但缺乏对图像和声音的理解能力，输出仅限于文字。</p>
+          <p style="margin-top:8px;font-size:0.78rem;color:var(--jade);font-weight:600;">教学用途：备课方案生成、习题出题、作文批改、课堂问答设计</p>
+        </div>
+
+        <!-- Stage 2: 多模态AI -->
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <h4>多模态AI</h4>
+          <p style="font-size:0.75rem;color:var(--stone);margin-bottom:4px;">2023 — 2024</p>
+          <p>以GPT-4V、通义千问、Sora为代表的多模态AI，突破了纯文本的限制，能够理解图像内容、生成图像和视频、识别语音。可以识别拍照的试卷手写内容，将文字教案自动转为短视频。</p>
+          <p style="margin-top:8px;font-size:0.78rem;color:var(--jade);font-weight:600;">教学用途：生成教学插图、制作微课视频、OCR识别手写作业、口语评测</p>
+        </div>
+
+        <!-- Stage 3: AI编程助手 -->
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <h4>AI编程助手</h4>
+          <p style="font-size:0.75rem;color:var(--stone);margin-bottom:4px;">2024 — 2025</p>
+          <p>以Cursor、Trae、Claude Code、GitHub Copilot为代表的AI编程工具，标志着从"AI辅助聊天"到"AI辅助创造"的质变。教师不再需要写代码，只需用自然语言描述需求，AI就能生成完整的网页、小工具、互动课件。这是本课程的核心工具链。</p>
+          <p style="margin-top:8px;font-size:0.78rem;color:var(--jade);font-weight:600;">教学用途：搭建交互式教学网站、制作课堂互动工具、自动批改作业系统</p>
+        </div>
+
+        <!-- Stage 4: AI智能体 -->
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <h4>AI智能体</h4>
+          <p style="font-size:0.75rem;color:var(--stone);margin-bottom:4px;">2025 — 至今</p>
+          <p>以Coze、Dify、Manus为代表的AI智能体，将AI从"单次问答"升级为"自主决策与行动"。智能体可以自动拆解任务、调用多种工具、执行完整工作流。例如：收集全班作业 → 自动批改 → 生成成绩分析报告 → 给每个学生发送个性化反馈。</p>
+          <p style="margin-top:8px;font-size:0.78rem;color:var(--jade);font-weight:600;">教学用途：自动批改Bot、24小时答疑助手、个性化学习伙伴、教务管理Agent</p>
+        </div>
+      </div>
+
+      <p style="margin-top:28px;font-size:0.9rem;color:var(--ink-light);">从第一阶段到第四阶段，AI的能力呈现出"理解→感知→创造→自主"的递进趋势。对于教师而言，第三和第四阶段的工具最具实战价值——它们不再只是辅助思考的"参谋"，而是能够独立完成任务的"执行者"。<strong style="color:var(--vermillion);">本课程将重点聚焦于AI编程助手（第三阶段），并结合智能体工具（第四阶段），手把手带您完成从工具认知到自主创作的完整闭环。</strong></p>
+    </div>
+  </div>
+
+  <!-- ── 1.3 什么是Vibe Coding？ ── -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num red">1.3</span>什么是Vibe Coding？</h3>
+    <div class="subsection-body">
+      <p>"Vibe Coding"（氛围编程）是2025年由OpenAI联合创始人、前特斯拉AI负责人<strong>Andrej Karpathy</strong>提出的全新编程范式。这个概念彻底颠覆了传统编程的认知——编程不再是逐行手敲代码，而是用自然语言描述你想要的"氛围"或"感觉"，AI自动理解你的意图并生成完整代码。</p>
+      <p style="margin-top:12px;">Karpathy的原话是："<em>有一种新型的编程方式，我称之为'Vibe Coding'——你完全沉浸在氛围中，拥抱大模型的能力，几乎忘记代码的存在。</em>" 换句话说，Vibe Coding的核心是<strong style="color:var(--vermillion);">"你描述想法，AI实现结果"</strong>。对于不懂代码的教师来说，这意味着只需描述"我想要一个什么样的教学页面"，AI就能帮你做出来。</p>
+
+      <!-- Tool Comparison Table -->
+      <h4 style="font-family:'Noto Serif SC',serif;font-size:1.1rem;margin:36px 0 16px;color:var(--ink);">三大类Vibe Coding工具对比</h4>
+      <div class="tools-table-wrap">
+        <table class="tools-table">
+          <thead>
+            <tr>
+              <th>类别</th>
+              <th>代表工具</th>
+              <th>使用方式</th>
+              <th>适合人群</th>
+              <th>上手难度</th>
+              <th>推荐指数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>集成开发环境(IDE)</strong></td>
+              <td>Trae、Cursor、Windsurf</td>
+              <td>安装桌面软件，在IDE中边描述边生成</td>
+              <td>所有教师（最推荐）</td>
+              <td><span class="badge normal">简单</span></td>
+              <td><span class="badge recommend">极力推荐</span></td>
+            </tr>
+            <tr>
+              <td><strong>终端命令行(CLI)</strong></td>
+              <td>Claude Code、Gemini CLI</td>
+              <td>在终端中输入自然语言指令</td>
+              <td>有一定技术基础的教师</td>
+              <td><span class="badge good">中等</span></td>
+              <td><span class="badge recommend">推荐</span></td>
+            </tr>
+            <tr>
+              <td><strong>在线平台(Platform)</strong></td>
+              <td>Coze、Dify、Replit</td>
+              <td>浏览器中拖拽或对话创建应用</td>
+              <td>无代码基础的教师</td>
+              <td><span class="badge normal">最简单</span></td>
+              <td><span class="badge good">适合入门</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Multi-subject Application Guide -->
+      <h4 style="font-family:'Noto Serif SC',serif;font-size:1.1rem;margin:40px 0 16px;color:var(--ink);">多学科应用场景指南</h4>
+      <p style="margin-bottom:16px;">不同学科的教学需求差异很大，选择合适的Vibe Coding工具能事半功倍。以下是各学科推荐的方案组合：</p>
+
+      <div class="cards-grid">
+        <div class="subject-card border-red">
+          <h5>语文</h5>
+          <p class="subtitle">推荐工具：Trae + Coze</p>
+          <p style="font-size:0.85rem;color:var(--stone);line-height:1.7;"><strong>典型场景：</strong>古诗赏析网站、作文批改Bot、文言文互动翻译器、名著阅读打卡页面<br><strong>提示词示例：</strong>"创建一个唐诗三百首的交互式学习页面，包含诗人简介、诗词原文、字词注释、赏析音频"</p>
+        </div>
+        <div class="subject-card border-blue">
+          <h5>数学</h5>
+          <p class="subtitle">推荐工具：Trae + Claude Code</p>
+          <p style="font-size:0.85rem;color:var(--stone);line-height:1.7;"><strong>典型场景：</strong>几何图形动态演示、函数图像探索器、概率实验模拟器<br><strong>提示词示例：</strong>"用Three.js做一个三角形内角和的可视化演示，可以拖动顶点改变三角形形状"</p>
+        </div>
+        <div class="subject-card border-orange">
+          <h5>英语</h5>
+          <p class="subtitle">推荐工具：Trae + Coze</p>
+          <p style="font-size:0.85rem;color:var(--stone);line-height:1.7;"><strong>典型场景：</strong>单词闪卡记忆游戏、口语陪练Bot、语法闯关答题页<br><strong>提示词示例：</strong>"生成一个英语单词闪卡记忆游戏，展示单词、音标、释义和例句，点击可翻转查看中文"</p>
+        </div>
+        <div class="subject-card border-pink">
+          <h5>思政</h5>
+          <p class="subtitle">推荐工具：Coze + Trae</p>
+          <p style="font-size:0.85rem;color:var(--stone);line-height:1.7;"><strong>典型场景：</strong>时事案例库、法律知识问答Bot、社会主义核心价值观互动展示<br><strong>提示词示例：</strong>"创建一个未成年人保护法的问答知识库，包含常见案例和法条解读"</p>
+        </div>
+        <div class="subject-card border-purple">
+          <h5>音乐</h5>
+          <p class="subtitle">推荐工具：Trae</p>
+          <p style="font-size:0.85rem;color:var(--stone);line-height:1.7;"><strong>典型场景：</strong>乐理互动教学页面、节奏训练工具、乐器识别游戏<br><strong>提示词示例：</strong>"做一个钢琴键盘模拟器，点击琴键显示对应音名和简谱，支持和弦同时发声"</p>
+        </div>
+        <div class="subject-card border-cyan">
+          <h5>信息科技</h5>
+          <p class="subtitle">推荐工具：Claude Code + Trae</p>
+          <p style="font-size:0.85rem;color:var(--stone);line-height:1.7;"><strong>典型场景：</strong>算法可视化动画、Python交互式教程、网络原理模拟<br><strong>提示词示例：</strong>"生成一个冒泡排序的动画演示页面，可视化展示每一轮的比较和交换过程"</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 1.4 Trae IDE入门 ── -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num red">1.4</span>Trae IDE入门</h3>
+    <div class="subsection-body">
+      <p>在众多Vibe Coding工具中，<strong style="color:var(--vermillion);">Trae</strong>（字节跳动出品）是最适合教师入门的AI编程IDE。它完全免费，界面友好，内置了三种工作模式来适配不同场景。本节将带你逐一了解并实战操作。</p>
+
+      <!-- Builder 模式 -->
+      <div class="detail-box" style="margin-top:24px;">
+        <h4>Builder模式详解 —— 用对话创建完整项目</h4>
+        <p style="font-size:0.9rem;color:var(--stone);margin-bottom:16px;">Builder模式是Trae最核心的功能，适合从零开始构建项目。你只需要用自然语言描述想要什么，AI自动规划项目结构、生成所有文件。</p>
+        <h5>操作步骤</h5>
+        <ol>
+          <li><strong>打开Trae</strong>：启动Trae桌面应用，首次使用需要注册登录（支持手机号或邮箱）。</li>
+          <li><strong>进入Builder模式</strong>：点击左侧工具栏的"Builder"图标（像一个魔法棒的按钮），进入Builder对话界面。</li>
+          <li><strong>描述需求</strong>：在输入框中用中文描述你想要创建的项目。越具体越好——说明主题、功能模块、配色风格、目标用户。</li>
+          <li><strong>AI自动生成</strong>：点击发送后，AI会展示它的项目规划，然后自动创建文件夹、生成HTML/CSS/JS文件、预览运行结果。</li>
+        </ol>
+
+        <h5>实战示例</h5>
+        <p style="font-size:0.85rem;color:var(--stone);margin-bottom:8px;">在Builder中输入以下提示词：</p>
+        <div class="prompt-text" style="margin-left:0;">创建一个初中语文《春》的课文赏析网页，包含原文、字词注释、段落分析、朗读音频播放器。使用温暖清新的配色，适合14-15岁学生使用。</div>
+        <p style="margin-top:12px;font-size:0.85rem;color:var(--stone);">AI收到这个指令后，会自动生成：</p>
+        <ul style="font-size:0.85rem;color:var(--ink-light);line-height:2;padding-left:20px;">
+          <li>完整的HTML结构（原文区、注释区、分析区、音频区）</li>
+          <li>配套的CSS样式文件（温暖清新配色）</li>
+          <li>JavaScript交互逻辑（音频播放控制、段落折叠）</li>
+          <li>在浏览器中实时预览效果</li>
+        </ul>
+        <div class="tip-box green">教学提示：Builder模式最适合"从零到一"的项目创建。教师在备课时，可以直接用Builder生成一个完整的教学网页框架，再逐步调整细节。</div>
+      </div>
+
+      <!-- Chat 模式 -->
+      <div class="detail-box">
+        <h4>Chat模式详解 —— 对话式代码修改与学习</h4>
+        <p style="font-size:0.9rem;color:var(--stone);margin-bottom:16px;">Chat模式适合在已有代码的基础上进行修改、优化或学习。选中某段代码后，用快捷键调出Chat面板，AI会在当前文件上下文中回答问题。</p>
+
+        <h5>操作方式</h5>
+        <ol>
+          <li><strong>选中代码</strong>：在编辑器中用鼠标选中你想了解的代码片段。</li>
+          <li><strong>快捷键</strong>：按下 <code style="background:rgba(196,30,58,0.08);padding:2px 8px;border-radius:4px;font-size:0.82rem;">Ctrl+L</code>（Mac上是 <code style="background:rgba(196,30,58,0.08);padding:2px 8px;border-radius:4px;font-size:0.82rem;">Cmd+L</code>），弹出Chat对话窗口。</li>
+          <li><strong>提问或指令</strong>：在Chat中输入你的问题或修改指令，AI会根据选中的代码上下文给出回答或执行修改。</li>
+        </ol>
+
+        <h5>多学科使用示例</h5>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+          <div class="prompt-text" style="margin-left:0;">解释这段JavaScript代码每一行在做什么，用通俗的语言。</div>
+          <div class="prompt-text" style="margin-left:0;">给这个提交按钮的点击事件添加错误处理，当输入为空时弹出提示。</div>
+          <div class="prompt-text" style="margin-left:0;">把这个页面的主题色从蓝色改成温暖的橙色系，适合小学语文教学场景。</div>
+          <div class="prompt-text" style="margin-left:0;">这段代码处理了用户的点击事件，请帮我添加键盘回车键的支持。</div>
+        </div>
+        <div class="tip-box gold" style="margin-top:12px;">Chat模式的核心价值是"边看边问边改"——不像Builder那样推倒重建，而是像家教一样在旁边帮你理解和优化代码。</div>
+      </div>
+
+      <!-- Solo 模式 -->
+      <div class="detail-box">
+        <h4>Solo模式详解 —— 最强自主编程模式</h4>
+        <p style="font-size:0.9rem;color:var(--stone);margin-bottom:16px;">Solo模式是Trae中最强大的模式——你描述整个项目，AI像一个独立开发者一样，自主规划、编码、测试、迭代，直到完成目标。整个过程AI会持续性地输出，中间不需要人工干预。</p>
+
+        <h5>完整实操示例：生成一个"化学元素周期表互动学习页面"</h5>
+        <p style="font-size:0.85rem;color:var(--stone);margin-bottom:8px;"><strong>第一轮提示词</strong>——建立项目框架：</p>
+        <div class="prompt-text" style="margin-left:0;">创建一个化学元素周期表的互动学习页面，需求如下：
+1. 用CSS Grid完整展示118个元素的周期表
+2. 每种元素用不同颜色区分（金属/非金属/稀有气体等）
+3. 点击元素弹出详细信息卡片（原子序数、原子量、电子排布、发现历史）
+4. 整体设计要有科技感，使用深色背景和霓虹色彩</div>
+        <p style="font-size:0.85rem;color:var(--stone);margin:12px 0 8px;"><strong>第二轮提示词</strong>——增加搜索和过滤：</p>
+        <div class="prompt-text" style="margin-left:0;">现在在页面顶部添加一个搜索框，用户可以输入元素名称或符号快速查找。同时添加分类过滤器按钮（全部/金属/非金属/稀有气体/镧系/锕系），点击后只显示对应类别的元素。搜索框和过滤器需要有平滑的动画效果。</div>
+        <p style="font-size:0.85rem;color:var(--stone);margin:12px 0 8px;"><strong>第三轮提示词</strong>——增加学习功能：</p>
+        <div class="prompt-text" style="margin-left:0;">添加一个"学习模式"开关，开启后进入测验模式：随机显示一个元素符号，用户需要从4个选项中选出正确的中文名称。统计答对数量并显示进度条。答对的元素在周期表上用金色边框高亮。</div>
+        <div class="tip-box purple" style="margin-top:12px;">Solo模式适合有明确完整需求的项目。把整个过程想象成你在给一位程序员下达开发任务——把你的需求描述清楚，剩下的交给AI。</div>
+      </div>
+
+      <!-- MCP 支持 -->
+      <div class="detail-box">
+        <h4>MCP支持 —— 连接更多外部能力</h4>
+        <p style="font-size:0.9rem;color:var(--stone);margin-bottom:12px;">MCP（Model Context Protocol，模型上下文协议）是2025年推出的开放协议，让AI能够连接各种外部工具和数据源。Trae支持MCP协议，这意味着AI可以读取本地文件、访问数据库、调用第三方API——不再是孤立的对话窗口，而是一个能够与外界交互的智能中枢。</p>
+        <p style="font-size:0.9rem;color:var(--stone);">在本课程的<strong>第二讲</strong>中，我们将深入讲解如何利用MCP协议，将Claude Code与TAPD项目管理平台打通，实现从需求分析到代码生成的完整工作流。敬请期待！</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 1.5 实战案例：面向PBL的教学网站制作 ── -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num red">1.5</span>实战案例：面向PBL的教学网站制作</h3>
+    <div class="subsection-body">
+      <p>掌握了工具知识之后，最重要的就是<strong style="color:var(--vermillion);">动手实践</strong>。本节将以项目式学习（PBL）的方法论，带你完整走一遍"从想法到上线"的全流程。我们将以初中语文课文<strong>朱自清《春》</strong>为例，创建一个功能完整的交互式教学网站。你不需要有任何编程基础——跟着提示词一步步操作即可。</p>
+      <p style="margin-top:8px;font-size:0.85rem;color:var(--stone);">本案例角色设定：一位初中语文老师，希望为《春》这篇课文创建一个学生可以自主浏览学习的交互式网页。</p>
+
+      <!-- Step 1 -->
+      <div class="prompt-step">
+        <div class="prompt-step-num">1</div>
+        <div class="prompt-step-content">
+          <strong>Step 1: 确定项目目标与设计（约10分钟）</strong>
+          <p>首先，我们需要和AI一起做好项目规划。把AI当作你的产品经理和教学设计顾问，让它帮你理清网站应该包含哪些功能模块。</p>
+          <div class="prompt-text">我要创建一个初中语文课文《春》的交互式教学网站，目标用户是初一学生。请帮我规划网站应该包含哪些功能模块？每个模块的教学目标是什么？请用表格输出规划方案。</div>
+          <p style="margin-top:8px;font-size:0.82rem;color:var(--stone);">AI会给出类似下面的规划建议——</p>
+          <p style="margin-top:4px;font-size:0.82rem;color:var(--ink-light);"><strong>AI建议的功能模块：</strong>① 课文原文展示区（熟悉课文）→ ② 生字词学习卡片（积累词汇）→ ③ 段落赏析折叠面板（理解写法）→ ④ 朗读音频播放器（培养语感）→ ⑤ 课后练习检测（巩固知识）</p>
+          <p style="margin-top:4px;font-size:0.82rem;color:var(--stone);">确认规划后，记录下来作为后续操作的依据。这个步骤虽然花些时间，但"磨刀不误砍柴工"。</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="prompt-step">
+        <div class="prompt-step-num">2</div>
+        <div class="prompt-step-content">
+          <strong>Step 2: 创建项目（约5分钟）</strong>
+          <p>打开Trae，切换到Builder模式。在输入框中粘贴下面的提示词，AI将自动生成项目的骨架代码。</p>
+          <div class="prompt-text">创建一个单页HTML网站，主题是朱自清《春》的课文教学，包含以下功能：1.课文原文展示区 2.生字词学习卡片 3.段落赏析区域 4.朗读音频播放器 5.课后练习检测。使用温暖清新的配色方案（主色调：浅绿+鹅黄+暖白），适合初中生使用。所有文字使用中文，字体选用适合阅读的无衬线字体。</div>
+          <p style="margin-top:8px;font-size:0.82rem;color:var(--stone);">Trae会开始工作：分析需求 → 规划结构 → 生成HTML → 添加CSS样式 → 在预览窗口展示效果。这个过程通常需要1-3分钟，你可以在右侧预览区实时看到页面的生成过程。</p>
+          <div class="tip-box green">看到初始页面后不要着急——这时候只是一个框架，功能还不完善。接下来的步骤会让它逐渐丰满起来。</div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="prompt-step">
+        <div class="prompt-step-num">3</div>
+        <div class="prompt-step-content">
+          <strong>Step 3: 逐步完善各模块（约40分钟）</strong>
+          <p>这是最核心的步骤。逐个模块向AI提出优化需求，每次聚焦一个功能点。下面是每个模块的完整提示词——</p>
+
+          <!-- 3a -->
+          <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:12px;">
+            <strong style="color:var(--vermillion);">3a. 课文原文展示区</strong>
+            <div class="prompt-text" style="margin-top:8px;">在页面顶部添加课文原文展示区，完整展示朱自清《春》的全文。要求：每个自然段之间有清晰的间距；重要修辞词语（如“朗润、酝酿、卖弄、宛转、应和、黄晕、烘托、抖擞”）用下划线和加粗高亮；段落编号用圆角徽章标注。请给我完整的HTML和CSS代码。</div>
+          </div>
+
+          <!-- 3b -->
+          <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:12px;">
+            <strong style="color:var(--vermillion);">3b. 生字词学习模块</strong>
+            <div class="prompt-text" style="margin-top:8px;">添加一个生字词学习区域，以卡片网格展示《春》中的重点词汇：朗润、酝酿、卖弄、宛转、黄晕、烘托、抖擞。每张卡片包含4项内容：词语（大号加粗）、拼音（灰色小字）、释义（简洁解释）、例句（从课文中引用原句）。卡片hover时有一个向上的微动效和阴影加深。</div>
+          </div>
+
+          <!-- 3c -->
+          <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:12px;">
+            <strong style="color:var(--vermillion);">3c. 段落赏析模块</strong>
+            <div class="prompt-text" style="margin-top:8px;">为课文《春》的每个自然段添加赏析内容，用折叠面板（accordion）实现点击标题展开/收起。每个面板包含两部分：修辞手法分析（如拟人、比喻、排比的具体运用和效果）、情感表达分析（作者通过该段表达了怎样的思想感情）。默认所有面板折叠，点击后平滑展开。</div>
+          </div>
+
+          <!-- 3d -->
+          <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:12px;">
+            <strong style="color:var(--vermillion);">3d. 音频播放模块</strong>
+            <div class="prompt-text" style="margin-top:8px;">添加一个音频播放器区域，为课文中的重点句段创建播放列表。使用HTML5 audio标签，配合自定义样式的播放/暂停按钮。播放列表包含：1.课文全文朗读 2."盼望着，盼望着，东风来了" 3."小草偷偷地从土里钻出来" 4."吹面不寒杨柳风" 5."春天像刚落地的娃娃"。每个播放项旁显示句段名称，当前播放项高亮显示。</div>
+          </div>
+
+          <!-- 3e -->
+          <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:12px;">
+            <strong style="color:var(--vermillion);">3e. 练习检测模块</strong>
+            <div class="prompt-text" style="margin-top:8px;">创建一个交互式测验区域，包含5道关于《春》的选择题。题型分布：第1题关于朱自清的基本文学常识（代表作、文学社团），第2题考查修辞手法判断，第3题考查重点词语理解，第4题考查课文内容细节，第5题考查文学常识延伸。用户点击选项后立即显示正确/错误（绿色/红色），每道题显示简短解析，最后统计总分并显示评语（全对=优秀、4题=良好、3题=及格、2题及以下=需要复习）。</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="prompt-step">
+        <div class="prompt-step-num">4</div>
+        <div class="prompt-step-content">
+          <strong>Step 4: 美化与优化（约10分钟）</strong>
+          <p>所有功能模块都就位后，做最后的视觉打磨，让页面看起来更专业、更精美。</p>
+          <div class="prompt-text">优化整个页面的视觉效果：1.添加微妙的背景纹理或柔和的渐变色背景 2.改进字体排版，标题使用衬线字体，正文使用无衬线字体，字号层次分明 3.为卡片添加更精致的阴影和圆角 4.让整体颜色搭配更协调（保持浅绿+鹅黄+暖白的主色调）。同时确保页面在手机和平板上也能正常浏览和操作，所有按钮和文字大小适合触屏。</div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="prompt-step">
+        <div class="prompt-step-num">5</div>
+        <div class="prompt-step-content">
+          <strong>Step 5: 部署上线（约15分钟）</strong>
+          <p>网站做好了，最后一步是让学生能够访问它。这里推荐几种最简便的部署方案。</p>
+          <div class="prompt-text">这个网站是一个单页HTML文件，怎么发布到网上让学生访问？给我最简单的部署方案。我没有任何服务器运维经验。</div>
+          <p style="margin-top:8px;font-size:0.82rem;color:var(--stone);">AI会推荐以下方案（按难度排序）：</p>
+          <ul style="font-size:0.82rem;color:var(--ink-light);line-height:2;padding-left:20px;margin-top:4px;">
+            <li><strong>GitHub Pages（推荐）：</strong>免费、无需服务器、绑定域名后即可访问。将HTML文件上传到GitHub仓库，开启Pages功能即自动部署。</li>
+            <li><strong>Cloudflare Pages：</strong>同样免费，国内访问速度较好，支持拖拽上传。</li>
+            <li><strong>腾讯云静态托管 / 阿里云OSS：</strong>国内访问最快，有免费额度，适合校内正式使用。</li>
+            <li><strong>局域网共享（临时方案）：</strong>将HTML文件放在教室电脑上，用Python一行命令启动临时Web服务器，学生在同一WiFi下用浏览器访问。</li>
+          </ul>
+          <div class="tip-box green">GitHub Pages是最推荐的方案——完全免费，绑定域名后学生随时随地都能访问。本课程的配套资源网站就部署在GitHub Pages上。详细的部署步骤请参考本课程的拓展资料包。</div>
+        </div>
+      </div>
+
+      <!-- Multi-Subject Extension -->
+      <div class="subsection-title" style="margin-top:48px;">
+        <span class="subsection-num purple">延</span> 多学科项目扩展
+      </div>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:24px;padding-left:52px;">上面以语文课文《春》为例展示了完整流程——同样的 PBL 方法论可以迁移到任何学科。以下是七大学科的详细项目方案，每个都包含<strong>学习目标、分步 Builder 提示词和预期成果</strong>，你可以直接复制提示词开始创建。</p>
+
+      <!-- ═══ 数学 ═══ -->
+      <div class="subject-card border-blue" style="margin-left:52px;">
+        <h5>📐 数学 — 勾股定理可视化证明</h5>
+        <p class="subtitle">适用年级：八年级 · 课时：2课时 · 难度：★★☆</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>通过动画直观理解勾股定理的几何含义</li>
+              <li>掌握"赵爽弦图"的证明思路（出入相补法）</li>
+              <li>能够运用勾股定理计算任意直角三角形的边长</li>
+              <li>通过分层练习巩固不同难度级别的应用能力</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：搭建页面框架 & 定理介绍</strong>
+                <div class="prompt-text">创建一个勾股定理教学网页。顶部用大标题"勾股定理"和副标题"a² + b² = c²"。下方放置一个直角三角形，标注三条边a、b、c，其中斜边c用红色高亮。三角形下方用一段话介绍定理内容。整体使用清爽的学术风格配色。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：赵爽弦图动画演示</strong>
+                <div class="prompt-text">在三角形下方添加"赵爽弦图"证明区域。用Canvas画一个大正方形（边长=a+b），内部包含4个全等直角三角形和一个中间小正方形（边长=c）。添加"开始演示"按钮：点击后4个三角形旋转移动到新的位置，形成两个正方形（面积分别a²+b²），与c²的正方形重合，直观展示a²+b²=c²。动画要流畅，持续2秒。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：交互式计算器</strong>
+                <div class="prompt-text">添加直角三角形边长计算器。提供三个输入框（直角边a、直角边b、斜边c），用户输入任意两个值，点击"计算"按钮自动求出第三个值并显示计算过程。例如输入a=3, b=4，则显示"c² = 3² + 4² = 9 + 16 = 25，所以c = 5"。同时右边的三角形图形自动更新比例。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:var(--info);">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：分层练习题</strong>
+                <div class="prompt-text">添加5道练习题，分为三个级别：基础题（2道，已知两直角边求斜边）、提高题（2道，已知斜边和一直角边求另一直角边）、挑战题（1道，实际应用题——求梯子靠墙的高度）。每道题有"A B C D"四个选项，选择后显示对错反馈和详细解析。右上角显示累计得分。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box green" style="margin-top:16px;">这个项目的核心亮点是"赵爽弦图"动画——将抽象的几何证明变成可视化的图形变换，学生一看就懂。计算器让每个学生都能动手验证，不再是死记硬背公式。</div>
+      </div>
+
+      <!-- ═══ 英语 ═══ -->
+      <div class="subject-card border-orange" style="margin-left:52px;">
+        <h5>🔤 英语 — 单词翻牌记忆游戏</h5>
+        <p class="subtitle">适用年级：七年级 · 课时：1课时 · 难度：★★★</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>通过游戏化方式记忆6组核心词汇的英文拼写和中文含义</li>
+              <li>理解前端DOM操作与事件处理的基本逻辑</li>
+              <li>体验"翻牌→配对→计分"的完整游戏循环开发</li>
+              <li>学会通过参数调整（卡片数量、词汇内容）来定制游戏</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：创建卡片网格 & 翻牌动画</strong>
+                <div class="prompt-text">创建一个单词翻牌记忆游戏。用CSS Grid布局放置12张卡片（3行×4列），卡片正面显示"?"问号图案，背面隐藏英文单词或中文释义。点击卡片后以3D翻转动画（rotateY 180度）展示背面内容。如果连续翻开的两张卡片不匹配，0.8秒后自动翻回。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：配对逻辑 & 词汇数据</strong>
+                <div class="prompt-text">定义6组单词数据：apple-苹果、bridge-桥、candle-蜡烛、dragon-龙、eagle-鹰、forest-森林。每张卡片有一个pairId（1-6）和type（"english"或"chinese"）。两张卡片配对的判断条件是pairId相同且type不同。配对成功后卡片保持翻开状态，添加绿色边框和"✓"标记。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：计分与计时系统</strong>
+                <div class="prompt-text">在游戏区域上方添加状态栏：显示"已用步数：0"、"耗时：00:00"和"配对数：0/6"。每翻开两张卡片计为一步，计时器精确到秒。全部6对配对完成后，弹出结算面板："🎉 恭喜完成！你用了【X】步，耗时【Y分Z秒】"，下方显示"重新开始"按钮。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：难度分级 & 主题切换</strong>
+                <div class="prompt-text">添加"难度选择"下拉菜单：简单（6对，3×4）、中等（8对，4×4）、困难（10对，4×5）。同时添加"主题切换"按钮：动物主题（dog-狗、cat-猫等）、食物主题（bread-面包、rice-米饭等）、学校主题（desk-课桌、book-书等）。切换主题时自动重置游戏并更新卡片内容。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box gold" style="margin-top:16px;">这个项目的最大价值在于"游戏化"——翻牌记忆是最经典的认知训练范式之一。教师可以灵活替换词汇数据，用于任何单元的生词复习，真正实现"做一次，用一学期"。</div>
+      </div>
+
+      <!-- ═══ 思政 ═══ -->
+      <div class="subject-card border-red" style="margin-left:52px;">
+        <h5>⚖️ 思政 — 法律知识问答闯关系统</h5>
+        <p class="subtitle">适用年级：八年级 · 课时：2课时 · 难度：★★☆</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>掌握《未成年人保护法》的核心条款和保护领域</li>
+              <li>能够运用法律知识分析典型案例</li>
+              <li>通过游戏化闯关增强法律意识和社会责任感</li>
+              <li>理解交互式问答系统的设计与实现方法</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:var(--accent);">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：闯关主界面 & 进度系统</strong>
+                <div class="prompt-text">创建一个未成年人保护法知识问答闯关系统。顶部显示"法律小卫士闯关"，下方有4个关卡卡片排成一行：第一关"判断题入门"、第二关"单选题进阶"、第三关"案例分析挑战"、第四关"终极裁决"。未解锁的关卡显示为灰色并带有🔒图标。每通过一关后下一关自动解锁。顶部有积分进度条，满100分解锁"法律小卫士"金色徽章。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:var(--accent);">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：第一关 — 判断题入门（5题）</strong>
+                <div class="prompt-text">第一关为5道判断题，每题10分。题目涉及未成年人保护法的基本知识，例如："学校应当尊重未成年学生的受教育权，不得随意开除未成年学生（✓）"。每道题显示一段陈述，下方两个按钮"正确"和"错误"。点击后立即判断对错：正确变绿色+"✓ 答对了！"，错误变红色+"✗ 答错了"并显示正确解释。5题完成后计算总分并解锁下一关。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:var(--accent);">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：第二关 — 单选题进阶（5题）</strong>
+                <div class="prompt-text">第二关为5道单选题，每题15分。题目涵盖家庭保护、学校保护、社会保护和司法保护四个领域。例如："根据未成年人保护法，以下哪种行为是违法的？A.父母指导孩子使用网络 B.商家向未成年人出售烟酒 C.学校组织课外活动 D.未成年人参加志愿服务"。每道题选项点击后高亮选择，提交后显示对错和解析。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:var(--accent);">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：第三关 — 案例分析挑战 & 徽章系统</strong>
+                <div class="prompt-text">第三关提供2个真实的未成年人权益案例，每题25分。案例以卡片形式展示（用200字描述案情），然后提出3个层层递进的问题。例如案例"小明被高年级同学索要零花钱"：Q1-这属于什么行为？Q2-小明可以向谁求助？Q3-施暴者可能面临什么法律后果？每个问题有文本框输入，提交后显示参考答案对比。集满100分解锁金色徽章动画——徽章从页面中央放大弹出，伴随五彩纸屑效果。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box red" style="margin-top:16px;">案例分析的"开放式回答+参考答案对比"设计是亮点——它避免了法律教育变成死记硬背，而是引导学生思考和表达，然后用AI生成的参考答案进行对比学习。</div>
+      </div>
+
+      <!-- ═══ 音乐 ═══ -->
+      <div class="subject-card border-cyan" style="margin-left:52px;">
+        <h5>🎵 音乐 — 中国民族乐器探索馆</h5>
+        <p class="subtitle">适用年级：七年级 · 课时：1-2课时 · 难度：★★☆</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>认识二胡、琵琶、古筝、笛子、唢呐、扬琴六种民族乐器的形制与音色</li>
+              <li>能够通过听觉辨别不同乐器的音色特征</li>
+              <li>了解每种乐器的历史渊源和代表曲目</li>
+              <li>培养对民族音乐文化的认同感与审美能力</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:#0891B2;">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：乐器卡片画廊</strong>
+                <div class="prompt-text">创建一个中国民族乐器展示页面。用CSS Grid布局（3列）展示6张乐器卡片：二胡、琵琶、古筝、笛子、唢呐、扬琴。每张卡片包含：乐器名称（大号字体）、一张占位图（用SVG绘制乐器简笔画轮廓，不同乐器不同形状）、乐器分类标签（拉弦/弹拨/吹奏/打击）。卡片有hover放大效果和柔和阴影。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:#0891B2;">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：音频播放功能</strong>
+                <div class="prompt-text">每张乐器卡片右下角添加一个播放按钮（▶圆形按钮）。点击后播放该乐器的代表曲目片段（约30秒）：二胡-《二泉映月》、琵琶-《十面埋伏》、古筝-《渔舟唱晚》、笛子-《姑苏行》、唢呐-《百鸟朝凤》、扬琴-《旱天雷》。播放时按钮变为暂停图标⏸，进度条在卡片底部显示。同一时间只能播放一种乐器。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:#0891B2;">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：乐器详情弹窗</strong>
+                <div class="prompt-text">点击卡片空白处（非播放按钮）弹出一个详情弹窗。弹窗内容包括：乐器高清占位图、构造简介（如琵琶的"琴头、琴颈、面板、品、相"）、音色特点描述、代表曲目列表、历史小知识（100字以内）。弹窗用柔和的从底部滑入动画（slide-up），背景半透明遮罩。点击遮罩或右上角✕关闭弹窗。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--info-wash);color:#0891B2;">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：听音辨乐器小测验</strong>
+                <div class="prompt-text">在页面底部添加"听音辨乐器"挑战区。随机播放一种乐器片段（不显示名称），下方列出6种乐器的名称按钮。用户点击选择后显示对错反馈。连续答对3题解锁"金耳朵"成就徽章。旁边显示得分（如"得分：5/8"）和"再听一次"按钮。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box green" style="margin-top:16px;">这个项目将视觉认知与听觉辨识结合，是跨感官教学设计的典范。如果无法获取真实音频文件，可以引导学生用AI语音合成工具生成每种乐器的"文字介绍+模拟音效描述"作为替代方案，同样能达到理解乐器音色特征的学习目标。</div>
+      </div>
+
+      <!-- ═══ 信息科技 ═══ -->
+      <div class="subject-card border-purple" style="margin-left:52px;">
+        <h5>💻 信息科技 — 排序算法可视化对决</h5>
+        <p class="subtitle">适用年级：八年级 · 课时：2课时 · 难度：★★★★</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>理解冒泡排序和快速排序的核心思想与执行步骤</li>
+              <li>通过可视化对比直观感受不同算法的效率差异</li>
+              <li>理解"比较次数"和"交换次数"作为算法性能指标</li>
+              <li>初步建立算法复杂度（时间复杂度）的感性认识</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--purple-wash);color:var(--purple);">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：数据可视化基础</strong>
+                <div class="prompt-text">创建一个排序算法可视化页面，用Canvas绘制15根高度不同的彩色柱子（高度范围20-200px，颜色渐变从蓝到紫），代表待排序的数组[64,34,25,12,22,11,90,45,72,18,55,33,87,50,40]。柱子底部标注数字，顶部显示索引。页面布局分为左右两栏：左侧"冒泡排序"区域，右侧"快速排序"区域，两个区域同时展示相同的初始数据。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--purple-wash);color:var(--purple);">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：冒泡排序动画实现</strong>
+                <div class="prompt-text">在左侧区域实现冒泡排序的逐步动画。每一轮遍历中：正在比较的两个柱子用橙色高亮，如果左柱>右柱则两柱交换位置（柱子平滑移动到对方位置，动画持续300ms）。每一轮结束后最大的柱子"冒泡"到右侧正确位置，变为绿色表示已排好。底部状态栏显示当前轮次、本轮比较次数、累计比较次数和累计交换次数。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--purple-wash);color:var(--purple);">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：快速排序动画实现</strong>
+                <div class="prompt-text">在右侧区域实现快速排序的逐步动画。选取第一个元素作为基准值（pivot），用醒目的红色高亮显示。小于基准值的柱子向左移动聚集（变蓝色），大于基准值的柱子向右移动聚集（变紫色）。每次分区完成后基准值放到正确位置（变绿色）。继续递归对左右子数组执行相同操作。底部同样显示比较次数和交换次数。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--purple-wash);color:var(--purple);">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：对比模式 & 性能统计</strong>
+                <div class="prompt-text">添加三个控制按钮："同时开始排序"、"逐步执行（每步0.5秒）"、"重置数据"。排序完成后在中间位置弹出一个对比统计面板：显示冒泡排序和快速排序的"总比较次数"和"总交换次数"的柱状图对比。同时支持"数据规模调节"滑块（10个/15个/20个数据），让学生观察不同数据量下两种算法差距的变化。底部添加一句话总结提示。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box purple" style="margin-top:16px;">"同时对比"的设计是这个项目的精髓——学生亲眼看到同样一组数据，冒泡排序"慢悠悠一格格挪"而快速排序"跳跃式分而治之"，比任何文字解释都更有说服力。建议课堂上让学生先预测"哪个更快？快多少？"再实际运行验证。</div>
+      </div>
+
+      <!-- ═══ 地理 ═══ -->
+      <div class="subject-card border-gold" style="margin-left:52px;">
+        <h5>🗺️ 地理 — 中国地形三级阶梯互动探索</h5>
+        <p class="subtitle">适用年级：八年级 · 课时：1-2课时 · 难度：★★★</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>掌握中国地势"三级阶梯"的空间分布格局</li>
+              <li>理解各阶梯的海拔范围、地形特征和代表性景观</li>
+              <li>能够说出三级阶梯的分界线（昆仑山-祁连山-横断山脉等）</li>
+              <li>建立中国地形"西高东低、阶梯状分布"的整体认知</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：中国轮廓地图 & 三级阶梯分层</strong>
+                <div class="prompt-text">创建一个中国地形三级阶梯互动展示页。用SVG绘制中国简化轮廓地图，以三种不同颜色填充三个阶梯区域：第一阶梯（青藏高原，海拔>4000m）用深棕色、第二阶梯（高原盆地，海拔1000-2000m）用土黄色、第三阶梯（平原丘陵，海拔<500m）用浅绿色。在阶梯分界处标注分界山脉名称：昆仑山、祁连山、横断山脉（一二级分界）和大兴安岭、太行山、巫山、雪峰山（二三级分界）。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：点击交互 — 区域详情弹窗</strong>
+                <div class="prompt-text">给每个阶梯区域添加点击交互。点击第一阶梯区域：弹出信息卡片显示"第一阶梯：青藏高原——平均海拔4000米以上，被称为'世界屋脊'。代表景观：喜马拉雅山脉、珠穆朗玛峰、青海湖、三江源。"点击第二阶梯：显示内蒙古高原、黄土高原、云贵高原、塔里木盆地、四川盆地等信息。点击第三阶梯：显示东北平原、华北平原、长江中下游平原、东南丘陵。每个弹窗附带一张该地形区的SVG示意图。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：地形剖面图 & 海拔对比</strong>
+                <div class="prompt-text">在地图下方添加一个沿北纬32°线的地形剖面示意图（从西到东）。用折线图展示海拔变化：从珠峰（8848m）→青藏高原（4500m）→四川盆地（500m）→长江中下游平原（<50m）→东海大陆架。剖面图随鼠标移动显示当前位置的海拔数据标签。旁边标注"第一阶梯→第二阶梯→第三阶梯→海洋"四个区段。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--warning-wash);color:var(--warning);">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：知识检测 & 河流流向分析</strong>
+                <div class="prompt-text">添加一个观察分析区：展示中国主要河流（长江、黄河、珠江、澜沧江）的简化流向示意图。引导学生发现"这些大河为什么都自西向东流？"——因为地势西高东低。同时添加5道选择题检测学生对三级阶梯知识的掌握情况。最后设置一个"拖拽分类"互动：将各地形区拖放到正确的阶梯区域中（如"四川盆地→第二阶梯"）。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box gold" style="margin-top:16px;">河流流向与地势的关系是地理学科的核心逻辑链——学生通过这个项目不仅记住了"三级阶梯"的事实，更理解了"地势决定河流走向"的地理因果推理，这是知识从"记忆层"上升到"理解层"的关键跨越。</div>
+      </div>
+
+      <!-- ═══ 物理 ═══ -->
+      <div class="subject-card border-pink" style="margin-left:52px;">
+        <h5>🔬 物理 — 牛顿第一定律实验模拟</h5>
+        <p class="subtitle">适用年级：八年级 · 课时：2课时 · 难度：★★★</p>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>学习目标</h5>
+            <ol>
+              <li>通过模拟实验理解"力不是维持运动的原因"</li>
+              <li>观察不同摩擦系数对物体运动状态的影响</li>
+              <li>理解牛顿第一定律（惯性定律）的物理含义</li>
+              <li>掌握"控制变量法"在物理实验中的应用</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="detail-box">
+            <h5>分步 Builder 提示词</h5>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:#C44570;">1</span>
+              <div class="prompt-step-content">
+                <strong>Step 1：实验场景搭建</strong>
+                <div class="prompt-text">创建一个牛顿第一定律模拟实验页面。页面中央用Canvas绘制一个水平轨道（长600px），轨道上放置一辆小车（矩形+两个圆形轮子）。轨道左端设置一个"发射区"（红色虚线标记），轨道表面可显示不同的纹理来代表不同摩擦系数的表面（光滑冰面、木板、粗糙砂纸）。轨道右侧延伸到页面边缘之外，暗示无限延伸。底部放置控制面板。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:#C44570;">2</span>
+              <div class="prompt-step-content">
+                <strong>Step 2：参数调节 & 物理引擎</strong>
+                <div class="prompt-text">添加控制面板，包含三个滑块调节器：①初始速度（0.5-5 m/s，步长0.5）②摩擦系数（0=完全光滑冰面、0.1=冰面、0.3=木板、0.5=粗糙砂纸、1.0=极粗糙）③小车质量（0.5-5 kg）。添加"发射"按钮和"重置"按钮。物理规则：加速度=摩擦系数×重力加速度（10m/s²），速度每秒递减，位置每秒更新。左上角实时显示速度、位置、时间数据。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:#C44570;">3</span>
+              <div class="prompt-step-content">
+                <strong>Step 3：对比实验模式</strong>
+                <div class="prompt-text">添加"对比实验"模式：轨道分为上下两条（各高120px），可以分别设置不同的摩擦系数但使用相同的初始速度和质量。两条轨道的小车同时发射，让学生直观对比不同表面上的运动距离差异。下方显示两条轨道的实时数据对比表：当前速度、已行驶距离、预计停止距离。当小车停下后，在停止位置标记红色竖线和距离数值。</div>
+              </div>
+            </div>
+            <div class="prompt-step">
+              <span class="prompt-step-num" style="background:var(--accent-wash);color:#C44570;">4</span>
+              <div class="prompt-step-content">
+                <strong>Step 4：实验记录表 & 结论引导</strong>
+                <div class="prompt-text">添加一个自动生成的实验记录表。每次实验（无论单轨还是双轨）自动记录一行数据：初始速度、摩擦系数、质量、滑行距离、滑行时间。表格最多保留10条记录，可以逐条删除或一键清空。记录表下方添加"结论引导"面板，提出逐步深入的思考题：①摩擦系数为0时小车会怎样？②滑行距离和初始速度有什么关系？③质量变化是否影响滑行距离？④这些现象说明了什么物理规律？学生可以在输入框中写下自己的结论。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-box green" style="margin-top:16px;">物理实验模拟的核心价值在于"理想化条件"——现实中永远无法实现"零摩擦"，但在模拟中可以。学生将摩擦系数调到0，亲眼看到小车永远匀速直线运动下去，这种"理想实验"的冲击力是黑板讲解无法替代的。伽利略正是用同样的"思想实验"方法推翻了亚里士多德的错误结论。</div>
+      </div>
+
+      <p style="margin-top:28px;font-size:0.9rem;color:var(--ink-light);">以上就是第一讲的全部实战内容。通过这个完整的案例，你应该已经体验到了Vibe Coding的核心魅力——<strong style="color:var(--vermillion);">你不需要会写代码，你只需要知道你想创造什么。</strong>在下一讲中，我们将学习如何将Claude Code与项目管理工具打通，构建更复杂的教学工具链。</p>
+
+      <!-- Next Lecture Button -->
+      <div style="text-align:center;margin-top:40px;">
+        <a href="lecture2.html" class="btn btn-primary">下一讲：Claude Code + TAPD 工作流实战 &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════ Footer ═══════════════════ -->
+<footer class="footer">
+  <p style="font-family:'Noto Serif SC',serif; font-weight:600; margin-bottom:4px;">第一讲：教学网站自己做——项目式学习与新一代AI编码工具实战</p>
+  <p>AI辅助教学构建实战三部曲 · 四讲掌握AI教学工具链</p>
+</footer>
+
+<!-- ═══════════════════ Back to Top ═══════════════════ -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- ═══════════════════ Scripts ═══════════════════ -->
+<script>
+// ── Mobile menu toggle ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+
+mobileToggle.addEventListener('click', function() {
+  navLinks.classList.toggle('mobile-open');
+});
+
+// Close mobile menu when clicking a link
+navLinks.querySelectorAll('a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    navLinks.classList.remove('mobile-open');
+  });
+});
+
+// ── Scroll-aware navigation ──
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+function onScroll() {
+  var scrollY = window.scrollY;
+  navbar.classList.toggle('scrolled', scrollY > 10);
+  backToTop.classList.toggle('visible', scrollY > 600);
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// ── Back to top ──
+backToTop.addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>

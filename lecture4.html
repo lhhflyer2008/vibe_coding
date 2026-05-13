@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第四讲：人人都是智能体创作者——用Coze快速搭建专属AI助手</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">AI<span>x</span>教学</a>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">课程首页</a></li>
+      <li><a href="lecture1.html">第一讲</a></li>
+      <li><a href="lecture2.html">第二讲</a></li>
+      <li><a href="lecture3.html">第三讲</a></li>
+      <li><a href="lecture4.html" class="active">第四讲</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Page Header ── -->
+<div class="page-header">
+  <div class="section-number">第四讲</div>
+  <h1 class="section-title">人人都是智能体创作者：<br>用 Coze 快速搭建专属 AI 助手</h1>
+  <p class="section-desc">零代码创建 AI 智能体——以作文批改系统为例，将你的教学经验固化为专属 AI 助手</p>
+</div>
+
+<!-- ── Breadcrumb ── -->
+<div class="breadcrumb">
+  <a href="index.html">课程首页</a> &gt; 第四讲
+</div>
+
+<!-- ═══════════════ 第四讲内容 ═══════════════ -->
+<section class="section">
+
+  <!-- 4.1 什么是扣子 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num purple">1</span>什么是扣子（Coze）？</h3>
+    <div class="subsection-body">
+      <p><strong>扣子（Coze）</strong> 是字节跳动推出的 AI 智能体开发平台，让用户无需编写代码即可创建、调试和部署 AI 助手。核心理念是<strong>"人人都是智能体创作者"</strong>。</p>
+      <div class="cards-grid" style="margin-top:16px;">
+        <div class="info-card">
+          <h4>多模型支持</h4>
+          <p>集成豆包、DeepSeek、通义千问等多种大模型，可按需切换</p>
+        </div>
+        <div class="info-card">
+          <h4>插件生态</h4>
+          <p>丰富的官方和社区插件——搜索、画图、语音、代码执行等</p>
+        </div>
+        <div class="info-card">
+          <h4>知识库</h4>
+          <p>上传文档、网页、表格，构建专属知识库，让 AI 回答更精准</p>
+        </div>
+        <div class="info-card">
+          <h4>多端发布</h4>
+          <p>一键发布到豆包、飞书、微信、网页等平台，随时随地使用</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.2 扣子能做什么 -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num purple">2</span>扣子能做什么——教学场景应用</h3>
+    <div class="subsection-body">
+      <div class="cards-grid" style="margin-top:16px;">
+        <div class="info-card">
+          <h4>作文批改助手</h4>
+          <p>上传学生作文，自动批改打分，生成详细评语和改进建议</p>
+        </div>
+        <div class="info-card">
+          <h4>课文导读助手</h4>
+          <p>上传课文，自动生成背景介绍、段落分析、考点梳理</p>
+        </div>
+        <div class="info-card">
+          <h4>出题助手</h4>
+          <p>根据知识点自动生成选择题、填空题、阅读理解题</p>
+        </div>
+        <div class="info-card">
+          <h4>口语陪练</h4>
+          <p>模拟对话场景，帮助学生练习英语口语或语文朗读</p>
+        </div>
+        <div class="info-card">
+          <h4>学情分析</h4>
+          <p>分析学生作业数据，生成学习报告和个性化建议</p>
+        </div>
+        <div class="info-card">
+          <h4>班级助手</h4>
+          <p>自动回复家长咨询、发布通知、管理班级事务</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.3 搭建作文批改助手（3小时实战） -->
+  <div class="subsection">
+    <h3 class="subsection-title"><span class="subsection-num purple">3</span>实战：用 Coze 搭建作文批改助手 <span style="font-size:0.7rem;font-weight:400;color:var(--stone);margin-left:8px;">3小时</span></h3>
+    <div class="subsection-body">
+
+      <!-- 总览流程 -->
+      <p>本环节为第四讲的<strong>核心实战模块</strong>（约 3 小时），带领学员从零开始在 Coze 平台上搭建一个完整的作文批改智能体。全程分为四大步骤，每一步都有详细的操作指导和注意事项。</p>
+
+      <div class="flow-steps" style="margin-top:16px; padding-left:0;">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <h4>创建 Bot</h4>
+          <p>注册登录、平台导航、Bot 创建与基础配置（约30分钟）</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <h4>设定人设与 Prompt</h4>
+          <p>角色定义、评分体系、输出格式、调试优化（约75分钟）</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <h4>配置知识库与插件</h4>
+          <p>上传文档、构建知识库、配置插件、编写工作流（约60分钟）</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <h4>测试发布与使用</h4>
+          <p>多轮测试、多端发布、迭代优化、使用统计（约45分钟）</p>
+        </div>
+      </div>
+
+      <!-- 步骤一：创建Bot -->
+      <div style="margin-top:48px; padding:32px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h4 style="font-family:'Noto Serif SC',serif; font-size:1.2rem; margin-bottom:8px; display:flex; align-items:center; gap:10px;">
+          <span class="subsection-num purple" style="width:40px;height:40px;">1</span> 创建 Bot——迈出第一步
+        </h4>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:24px;">约30分钟 · 难度：★★★★★</p>
+
+        <!-- 1.1 注册登录 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">1.1 注册与登录 Coze 平台</h5>
+        <div class="cards-grid" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="info-card">
+            <h4>访问官网</h4>
+            <p>打开浏览器，访问 Coze 官网 <strong>coze.cn</strong>（国内版）或 <strong>coze.com</strong>（国际版）</p>
+          </div>
+          <div class="info-card">
+            <h4>注册账号</h4>
+            <p>支持手机号、抖音账号、飞书账号等多种方式注册登录</p>
+          </div>
+          <div class="info-card">
+            <h4>进入工作台</h4>
+            <p>登录后进入个人工作台，这是你管理所有 Bot 和知识库的中心</p>
+          </div>
+        </div>
+        <div style="margin-top:8px; padding:12px 16px; background:rgba(184,150,62,0.08); border-radius:8px; font-size:0.82rem; color:var(--gold);">
+          讲师提示：建议学员使用国内版 coze.cn，手机号注册即可，无需科学上网。确保每位学员都成功登录后再继续。
+        </div>
+
+        <!-- 1.2 平台界面导览 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">1.2 Coze 平台界面导览</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">在创建 Bot 之前，先熟悉平台的核心区域：</p>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>区域</th><th>功能说明</th><th>本次会用到</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Bots</strong></td><td>管理你创建的所有智能体，新建、编辑、删除</td><td>核心区域</td></tr>
+              <tr><td><strong>知识库</strong></td><td>上传文档构建专属知识库，Bot 从这里获取专业知识</td><td>步骤三使用</td></tr>
+              <tr><td><strong>插件</strong></td><td>浏览和添加官方/社区插件，扩展 Bot 能力</td><td>步骤三使用</td></tr>
+              <tr><td><strong>工作流</strong></td><td>可视化编排多步骤任务流程，实现复杂业务逻辑</td><td>进阶可选</td></tr>
+              <tr><td><strong>记忆</strong></td><td>管理 Bot 的长期记忆——变量、数据库、文件盒子</td><td>进阶可选</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 1.3 创建 Bot -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">1.3 创建你的第一个 Bot</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:12px;">操作路径：点击左侧导航 <strong>"Bots"</strong> → 点击右上角 <strong>"创建 Bot"</strong> 按钮 → 填写以下信息：</p>
+        <div class="cards-grid" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="info-card">
+            <h4>Bot 名称</h4>
+            <p>输入"<strong>作文批改助手</strong>"——命名要直观明了，让学生和家长一眼看懂用途</p>
+          </div>
+          <div class="info-card">
+            <h4>Bot 描述</h4>
+            <p>填写："专业的中小学生作文批改助手，支持打分、评语、修改建议和范文推荐"——好的描述帮助用户理解 Bot 能做什么</p>
+          </div>
+          <div class="info-card">
+            <h4>Bot 图标</h4>
+            <p>可以使用 AI 生成图标（输入"一本打开的书和一支红笔"），或上传自定义图片</p>
+          </div>
+          <div class="info-card">
+            <h4>选择模型</h4>
+            <p>默认推荐<strong>豆包·大模型</strong>（免费额度充足）。如需更强推理能力可选择 DeepSeek</p>
+          </div>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:rgba(196,30,58,0.06); border-radius:8px; font-size:0.82rem; color:var(--vermillion);">
+          注意：Bot 名称创建后仍可修改，但描述和模型选择建议一开始就确认好，避免后续频繁调整。
+        </div>
+
+        <!-- 1.4 认识编排界面 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">1.4 认识 Bot 编排界面</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">创建完成后进入编排页面，这是配置 Bot 的核心工作区——三栏布局：</p>
+        <div class="cards-grid" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+          <div class="info-card">
+            <h4>左侧：配置面板</h4>
+            <p>人设与回复逻辑、插件、知识库、工作流、变量等所有配置入口</p>
+          </div>
+          <div class="info-card">
+            <h4>中间：预览窗口</h4>
+            <p>实时测试 Bot 效果，输入作文即可看到批改结果，调试利器</p>
+          </div>
+          <div class="info-card">
+            <h4>右侧：调试面板</h4>
+            <p>查看 Bot 的思考过程、调用了哪些知识库/插件、Token 消耗等</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 步骤二：设定人设 -->
+      <div style="margin-top:32px; padding:32px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h4 style="font-family:'Noto Serif SC',serif; font-size:1.2rem; margin-bottom:8px; display:flex; align-items:center; gap:10px;">
+          <span class="subsection-num purple" style="width:40px;height:40px;">2</span> 设定人设与编写 Prompt——赋予 Bot 灵魂
+        </h4>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:24px;">约75分钟 · 难度：★★★★★ · <strong>本步骤是最关键环节</strong></p>
+
+        <!-- 2.1 理解人设 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">2.1 什么是"人设"？为什么它如此重要？</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); line-height:1.9;">
+          <strong>人设（Persona）</strong> 是 Bot 的"人格定义"——它决定了 Bot 以什么身份、什么语气、什么标准来与学生交互。在 Coze 中，"人设与回复逻辑"就是 Bot 的 System Prompt，是 Bot 最核心的配置。
+        </p>
+        <div class="cards-grid" style="padding-left:0; margin-top:12px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="info-card">
+            <h4>角色定位</h4>
+            <p>设定 Bot 是谁——语文老师？作文评委？学长学姐？不同角色带来不同的互动风格</p>
+          </div>
+          <div class="info-card">
+            <h4>行为边界</h4>
+            <p>明确 Bot 能做什么、不能做什么——只批改作文，不聊天、不给学生代写</p>
+          </div>
+          <div class="info-card">
+            <h4>语言风格</h4>
+            <p>专业严谨 vs 亲切鼓励？对小学生要有亲和力，对高中生可以更专业</p>
+          </div>
+          <div class="info-card">
+            <h4>工作标准</h4>
+            <p>评分标准是什么？输出格式是什么？需要引用哪些参考资料？</p>
+          </div>
+        </div>
+
+        <!-- 2.2 Prompt 编写框架 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">2.2 Prompt 编写五步框架</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:12px;">一个好的人设 Prompt 应该包含以下五个层次，我们逐层来构建：</p>
+        <div class="flow-steps" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <h4>角色层</h4>
+            <p>定义身份、经验、风格</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <h4>标准层</h4>
+            <p>评分维度与权重体系</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <h4>流程层</h4>
+            <p>批改步骤与执行顺序</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <h4>格式层</h4>
+            <p>输出结构、模板与示例</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">5</div>
+            <h4>约束层</h4>
+            <p>禁止事项、边界条件、异常处理</p>
+          </div>
+        </div>
+
+        <!-- 2.3 完整Prompt -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">2.3 完整 Prompt 模板（逐层拆解）</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">以下是一个可直接使用的完整 Prompt，每一层都有详细的注释说明：</p>
+        <div class="code-block" style="margin-left:0; max-height:600px; overflow-y:auto;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre>作文批改助手 —— 完整人设 Prompt（直接复制到 Coze）
+
+
+/* === 第一层：角色定义 === */
+你是一位拥有20年教龄的中小学语文高级教师，曾任中考作文阅卷组组长。
+你的教学风格是"鼓励为主，精准指导"——你相信每个孩子都能写出好文章，
+你的任务是用专业又温暖的方式帮助学生发现自己的写作潜力。
+
+/* === 第二层：评分标准 === */
+你对作文的评分标准严格参照新课标要求，从以下五个维度综合评分（满分100分）：
+
+【评分维度与权重】
+1. 内容立意（25分）
+   - 一等（21-25）：主题鲜明，立意新颖有深度，选材典型
+   - 二等（16-20）：主题明确，选材恰当，有一定新意
+   - 三等（11-15）：主题基本明确，选材一般
+   - 四等（0-10）：主题模糊，偏离题目要求
+
+2. 结构条理（25分）
+   - 一等（21-25）：结构严谨，层次分明，过渡自然，首尾呼应
+   - 二等（16-20）：结构完整，层次清楚，过渡较自然
+   - 三等（11-15）：结构基本完整，段落划分不够合理
+   - 四等（0-10）：结构混乱，缺乏逻辑
+
+3. 语言表达（25分）
+   - 一等（21-25）：语言流畅生动，句式多样，修辞恰当
+   - 二等（16-20）：语言通顺，用词准确，表达清楚
+   - 三等（11-15）：语言基本通顺，偶有语病
+   - 四等（0-10）：语言不通顺，语病较多
+
+4. 情感真挚（15分）
+   - 一等（13-15）：真情实感，体验独特，有感染力
+   - 二等（10-12）：感情真实，有自己的感受
+   - 三等（7-9）：感情不够自然，有套话
+   - 四等（0-6）：无真情实感，内容空洞
+
+5. 书写规范（10分）
+   - 错别字每个扣0.5分（重复不计，扣完3分为止）
+   - 标点错误每个扣0.5分（扣完2分为止）
+   - 格式不规范扣1-3分
+   - 字数不足每少50字扣1分（扣完2分为止）
+
+/* === 第三层：批改流程 === */
+请严格按照以下流程批改每一篇作文：
+
+第一步：通读全文
+- 整体把握文章主题、体裁、情感基调
+- 判断作文所属学段（小学/初中/高中）并据此调整评价标准
+
+第二步：逐项评分
+- 按照五个维度逐一打分，每个维度的分数必须有依据
+- 标记出具体的段落或句子作为评分依据
+
+第三步：亮点发现
+- 找出至少3个具体亮点（好词好句、精彩描写、巧妙构思等）
+- 引用原文具体句子，说明好在哪里
+
+第四步：问题诊断
+- 找出至少2个具体问题，说明为什么是问题
+- 对错别字、病句要逐一标注并在原文中指出位置
+
+第五步：修改建议
+- 针对每个诊断出的问题给出具体的修改方案
+- 提供修改后的示范句子或段落
+- 建议必须是学生能理解、可操作的
+
+/* === 第四层：输出格式模板 === */
+请严格按照以下格式输出批改结果：
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+  作文批改报告
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+评分总览
+| 评分维度 | 得分 | 满分 | 等级 |
+|----------|------|------|------|
+| 内容立意 | XX | 25 | X等 |
+| 结构条理 | XX | 25 | X等 |
+| 语言表达 | XX | 25 | X等 |
+| 情感真挚 | XX | 15 | X等 |
+| 书写规范 | XX | 10 | X等 |
+| 总分 | XX | 100 | — |
+
+亮点（至少3条）
+1. [亮点描述]：原文"……"——[具体分析好在哪]
+2. [亮点描述]：原文"……"——[具体分析好在哪]
+3. [亮点描述]：原文"……"——[具体分析好在哪]
+
+不足与建议（至少2条）
+1. [问题描述]
+   原文："……"
+   建议：[具体修改方案]
+   修改示范："……"
+
+2. [问题描述]
+   原文："……"
+   建议：[具体修改方案]
+   修改示范："……"
+
+错别字/病句清单
+（如有则列出，无则写"未发现明显错别字或病句"）
+
+教师寄语
+（用2-3句话总结，以鼓励为主，指出最大的一个进步方向）
+
+/* === 第五层：约束与边界 === */
+【你必须遵守的规则】
+✓ 必须逐项打分，不可跳过任何维度
+✓ 评分要有原文依据，不可凭感觉给分
+✓ 评语要具体，禁止使用"写得很好""还需要努力"等空洞评价
+✓ 对小学生使用更温和鼓励的语气，对高中生可以更专业直接
+✓ 如果作文明显偏题，要在评语开头明确指出
+
+【你绝对不能做的事】
+✗ 禁止直接替学生重写整篇作文
+✗ 禁止使用讽刺、挖苦、打击学生自信心的语言
+✗ 禁止说"这篇作文很差"——要说"有很大的提升空间"
+✗ 禁止透露你是 AI——始终保持"语文老师"的身份
+✗ 禁止评价与作文无关的内容
+✗ 如果学生只发了一个词或一句话（非完整作文），请回复：
+  "同学你好！请把完整的作文发给我，我才能帮你批改哦~期待看到你的作品！"</pre>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:rgba(91,140,90,0.08); border-radius:8px; font-size:0.82rem; color:var(--jade);">
+          操作提示：将上述 Prompt 完整复制，粘贴到 Coze Bot 编排页面的"人设与回复逻辑"输入框中，然后点击保存。
+        </div>
+
+        <!-- 2.4 开场白与预置对话 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">2.4 配置开场白——给学生好的第一印象</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">在"人设与回复逻辑"下方找到"<strong>开场白</strong>"设置，填入欢迎语。开场白会在学生第一次打开 Bot 时自动发送：</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre>同学你好！我是你的专属作文批改老师~
+
+把写好的作文发给我，我会从以下五个方面帮你分析：
+   · 内容立意 · 结构条理 · 语言表达 · 情感真挚 · 书写规范
+
+小提示：
+   · 支持小学到高中各学段的作文
+   · 可以直接粘贴文字，也可以上传作文图片
+   · 我会给出详细的评分、亮点分析和修改建议
+
+期待看到你的精彩作品！</pre>
+        </div>
+
+        <!-- 2.5 预置回答 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">2.5 配置预置问答——让 Bot 更"懂行"</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">在"<strong>对话技能 → 预置回答</strong>"中，可以设置常见问题的标准回复，让 Bot 更专业：</p>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>用户可能问</th><th>Bot 预置回答</th></tr></thead>
+            <tbody>
+              <tr><td>"你能批改什么类型的作文？"</td><td>"我可以批改记叙文、议论文、说明文、散文、读后感等中小学常见体裁，覆盖300字到1500字的作文。只要你发过来，我都能改！"</td></tr>
+              <tr><td>"评分标准是什么？"</td><td>"我参照新课标语文作文评分标准，从内容立意(25分)、结构条理(25分)、语言表达(25分)、情感真挚(15分)、书写规范(10分)五个维度评分，满分100分。"</td></tr>
+              <tr><td>"你的评分准吗？"</td><td>"我的评分体系经过大量作文数据训练和语文教师校验，可以作为重要参考。但最终请以老师的实际评分为准哦~"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 2.6 初步测试 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">2.6 初步测试——验证 Prompt 效果</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">在右侧预览窗口中，用以下两篇测试作文进行初步验证：</p>
+        <div class="cards-grid" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+          <div class="info-card">
+            <h4>测试作文A（中等水平）</h4>
+            <p style="font-size:0.8rem; font-family:serif;">《我的妈妈》<br>我的妈妈是一个很普通的妈妈，她每天都很早起床给我做早饭，然后送我去上学。她工作很辛苦，但是从来没有抱怨过。有一次我生病了，妈妈整夜没有睡觉照顾我。我很感动，我觉得我的妈妈是世界上最好的妈妈。</p>
+          </div>
+          <div class="info-card">
+            <h4>测试作文B（偏题检查）</h4>
+            <p style="font-size:0.8rem; font-family:serif;">《难忘的一天》<br>今天是星期五，天气很好。早上我吃了面包和牛奶。中午放学后我和同学去打球。晚上回家写了作业就看电视。</p>
+          </div>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:rgba(184,150,62,0.08); border-radius:8px; font-size:0.82rem; color:var(--gold);">
+          讲师提示：让学员将测试作文A输入预览窗口，观察 Bot 的回复——是否按五个维度打了分？输出格式是否正确？评语是否具体？发现问题后回到 Prompt 中调整优化。
+        </div>
+      </div>
+
+      <!-- 步骤三：配置知识库与插件 -->
+      <div style="margin-top:32px; padding:32px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h4 style="font-family:'Noto Serif SC',serif; font-size:1.2rem; margin-bottom:8px; display:flex; align-items:center; gap:10px;">
+          <span class="subsection-num purple" style="width:40px;height:40px;">3</span> 配置知识库与插件——给 Bot 装上"外挂"
+        </h4>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:24px;">约60分钟 · 难度：★★★★★</p>
+
+        <!-- 3.1 知识库概念 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">3.1 为什么要配置知识库？</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); line-height:1.9;">
+          大模型的知识有截止日期，且不了解你所在学校的具体评分标准。通过<strong>知识库</strong>，你可以"喂"给 Bot 专属的教学资料，让它的批改更贴合你的实际需求。知识库的工作原理是<strong>RAG（检索增强生成）</strong>——Bot 在回答前先从知识库中检索相关内容，再结合检索结果生成更精准的回答。
+        </p>
+        <div class="cards-grid" style="padding-left:0; margin-top:12px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="info-card">
+            <h4>上传文档</h4>
+            <p>支持 PDF、Word、TXT、Excel、PPT、网页链接、飞书文档等多种格式</p>
+          </div>
+          <div class="info-card">
+            <h4>自动切片</h4>
+            <p>Coze 会自动将长文档切分为语义段落，建立索引供检索</p>
+          </div>
+          <div class="info-card">
+            <h4>智能检索</h4>
+            <p>Bot 回答时自动检索知识库中的相关内容，融合到回答中</p>
+          </div>
+          <div class="info-card">
+            <h4>持续更新</h4>
+            <p>随时增删文档，Bot 能力同步更新，无需重新训练</p>
+          </div>
+        </div>
+
+        <!-- 3.2 创建知识库 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">3.2 创建作文批改知识库——三步搞定</h5>
+
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;"><strong>第一步：创建知识库</strong></p>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;">左侧导航点击"知识库" → 右上角"创建知识库" → 命名为"<strong>作文批改标准库</strong>" → 确认创建。</p>
+
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;"><strong>第二步：准备并上传材料</strong></p>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:12px;">建议准备以下四类文档（准备一个 Word 文档即可，包含以下内容）：</p>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>文档类型</th><th>具体内容</th><th>重要性</th></tr></thead>
+            <tbody>
+              <tr><td>评分标准细则</td><td>新课标作文评分标准、中考/高考作文等级评分标准、各学段写作要求</td><td>必须</td></tr>
+              <tr><td>优秀范文集</td><td>收集5-10篇各体裁的优秀范文（记叙文、议论文、散文），每篇附点评</td><td>强烈推荐</td></tr>
+              <tr><td>常见写作问题</td><td>学生常见错误类型（审题偏差、结构松散、语言平淡、详略不当等）及对应修改方案</td><td>强烈推荐</td></tr>
+              <tr><td>年级写作要求</td><td>3-9年级每个年级的作文字数要求、体裁要求、能力目标</td><td>推荐</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.88rem; color:var(--ink-light); margin:16px 0 8px;"><strong>第三步：关联到 Bot</strong></p>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:8px;">回到 Bot 编排页面 → 左侧"知识库"选项卡 → 点击"+ 添加知识库" → 选择刚创建的"作文批改标准库" → 确认添加。</p>
+        <div style="padding:12px 16px; background:rgba(91,140,90,0.08); border-radius:8px; font-size:0.82rem; color:var(--jade); margin-bottom:12px;">
+          添加成功后，Bot 在批改作文时会自动从知识库中检索相关评分标准和范文进行参考，批改质量将显著提升。
+        </div>
+
+        <!-- 3.3 插件配置 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">3.3 添加实用插件——扩展 Bot 能力</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">插件可以为 Bot 添加额外的功能。在左侧"插件"选项卡中搜索并添加以下推荐插件：</p>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>插件名称</th><th>功能</th><th>在作文批改中的用途</th></tr></thead>
+            <tbody>
+              <tr><td><strong>网页搜索</strong></td><td>让 Bot 能搜索互联网信息</td><td>查询最新作文题目、中高考动态、名师写作建议</td></tr>
+              <tr><td><strong>图片理解</strong></td><td>识别图片中的文字内容</td><td>学生拍照上传手写作文，Bot 自动识别后批改</td></tr>
+              <tr><td><strong>图表生成</strong></td><td>生成数据可视化图表</td><td>生成班级作文成绩分布图、个人进步趋势图</td></tr>
+              <tr><td><strong>文件盒子</strong></td><td>批量处理文件</td><td>一次上传多篇作文，逐一生成批改报告</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:rgba(108,92,231,0.06); border-radius:8px; font-size:0.82rem;">
+          进阶提示：如果学员学有余力，可以尝试"工作流"功能——用可视化拖拽方式创建一个"<strong>批量作文批改工作流</strong>"：接收多篇作文 → 逐篇评分 → 汇总生成班级报告 → 发送到飞书。这是从"单篇批改"到"批量处理"的关键升级。
+        </div>
+
+        <!-- 3.4 工作流介绍 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">3.4 进阶可选：搭建一个简单工作流</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">在左侧"工作流"选项卡中新建工作流，以拖拽方式编排复杂任务。以下是"作文批改"工作流的设计思路：</p>
+        <div class="code-block" style="margin-left:0;">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <pre>【作文批改工作流 —— 节点设计】
+
+开始节点（接收用户输入）
+    │
+    ▼
+判断节点：用户发送的是作文吗？
+    ├── 是 → 继续批改流程
+    └── 否 → 返回提示"请发送完整的作文"
+    │
+    ▼
+知识库检索节点：检索评分标准和范文
+    │
+    ▼
+LLM 批改节点：调用大模型进行评分和撰写评语
+    │
+    ▼
+代码节点：格式化输出（提取分数、整理表格）
+    │
+    ▼
+结束节点：输出结构化批改报告</pre>
+        </div>
+      </div>
+
+      <!-- 步骤四：测试发布 -->
+      <div style="margin-top:32px; padding:32px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h4 style="font-family:'Noto Serif SC',serif; font-size:1.2rem; margin-bottom:8px; display:flex; align-items:center; gap:10px;">
+          <span class="subsection-num purple" style="width:40px;height:40px;">4</span> 测试发布与持续优化——让 Bot 真正"上岗"
+        </h4>
+        <p style="font-size:0.85rem; color:var(--stone); margin-bottom:24px;">约45分钟 · 难度：★★★★★</p>
+
+        <!-- 4.1 系统测试 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">4.1 系统化测试——四个必测维度</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">发布前需要做系统化的测试，确保 Bot 在各种情况下都能正常工作：</p>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>测试维度</th><th>测试用例</th><th>预期结果</th></tr></thead>
+            <tbody>
+              <tr><td><strong>正常批改</strong></td><td>输入一篇400字的完整记叙文</td><td>按五维度打分，输出完整批改报告，包含亮点和建议</td></tr>
+              <tr><td><strong>短作文</strong></td><td>输入一篇50字左右的短文</td><td>正常批改，但标注字数不足，按标准扣分</td></tr>
+              <tr><td><strong>非作文输入</strong></td><td>输入"你好""今天天气不错"等闲聊</td><td>友好地提醒用户发送完整作文，不执行批改流程</td></tr>
+              <tr><td><strong>多学段切换</strong></td><td>分别输入三年级和初三水平的作文</td><td>Bot 能识别学段差异，评价标准相应调整</td></tr>
+              <tr><td><strong>手写图片</strong></td><td>上传一张手写作文的照片</td><td>通过图片理解插件识别文字后正常批改</td></tr>
+              <tr><td><strong>偏题作文</strong></td><td>输入一篇明显跑题的作文</td><td>在评语开头指出偏题问题，评分相应降低</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px; padding:12px 16px; background:rgba(196,30,58,0.06); border-radius:8px; font-size:0.82rem; color:var(--vermillion);">
+          关键步骤：每完成一个测试用例，回到编排页面的"人设与回复逻辑"中调整 Prompt，然后重新测试。这个过程通常需要<strong>3-5轮迭代</strong>才能达到满意效果。
+        </div>
+
+        <!-- 4.2 调试面板 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">4.2 善用调试面板排查问题</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">当 Bot 的回答不符合预期时，打开右侧调试面板查看以下信息：</p>
+        <div class="cards-grid" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="info-card">
+            <h4>思考过程</h4>
+            <p>查看 Bot 的推理链路——它理解了什么？判断了什么？哪里出了偏差？</p>
+          </div>
+          <div class="info-card">
+            <h4>知识库召回</h4>
+            <p>查看了知识库中的哪些片段？是否命中了正确的文档？切片质量如何？</p>
+          </div>
+          <div class="info-card">
+            <h4>插件调用</h4>
+            <p>调用了哪些插件？调用是否成功？返回了什么数据？</p>
+          </div>
+          <div class="info-card">
+            <h4>Token 消耗</h4>
+            <p>每次对话消耗了多少 Token？大头在哪里？是否需要优化 Prompt 长度？</p>
+          </div>
+        </div>
+
+        <!-- 4.3 多端发布 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">4.3 多端发布——让 Bot 触手可及</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">测试满意后，点击右上角"<strong>发布</strong>"按钮，选择发布渠道：</p>
+        <div class="flow-steps" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+          <div class="flow-step">
+            <div class="flow-step-num">A</div>
+            <h4>发布到豆包</h4>
+            <p>在豆包 App 中搜索到你的 Bot，学生和家长可以直接使用</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">B</div>
+            <h4>发布到飞书</h4>
+            <p>作为飞书 Bot 添加到班级群，学生@Bot 即可交作文批改</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">C</div>
+            <h4>发布为网页链接</h4>
+            <p>生成一个分享链接，学生点击链接即可在浏览器中使用</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">D</div>
+            <h4>嵌入微信公众号</h4>
+            <p>通过 API 接入微信公众号，学生关注后即可使用</p>
+          </div>
+        </div>
+
+        <!-- 4.4 使用与迭代 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">4.4 持续迭代——从 1.0 到 2.0</h5>
+        <p style="font-size:0.88rem; color:var(--ink-light); margin-bottom:8px;">Bot 发布后不是终点，而是持续优化的起点：</p>
+        <div class="cards-grid" style="padding-left:0; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="info-card">
+            <h4>查看使用数据</h4>
+            <p>在 Bot 分析页面查看使用人数、对话量、满意度等指标</p>
+          </div>
+          <div class="info-card">
+            <h4>浏览对话历史</h4>
+            <p>抽查真实对话记录，发现 Prompt 覆盖不到的场景，持续补充</p>
+          </div>
+          <div class="info-card">
+            <h4>扩充知识库</h4>
+            <p>根据实际使用中暴露的问题，不断补充新的范文和评分案例</p>
+          </div>
+          <div class="info-card">
+            <h4>版本管理</h4>
+            <p>每次重大修改前先复制一个副本，方便对比和回滚</p>
+          </div>
+        </div>
+
+        <!-- 4.5 常见问题排查 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">4.5 常见问题排查指南</h5>
+        <div class="tools-table-wrap" style="padding-left:0;">
+          <table class="tools-table">
+            <thead><tr><th>问题现象</th><th>可能原因</th><th>解决方法</th></tr></thead>
+            <tbody>
+              <tr><td>Bot 拒绝批改，说"我是AI不能..."</td><td>Prompt 中的人设不够稳固</td><td>在人设开头加强角色定义："你是一位语文教师，这就是你的真实身份"</td></tr>
+              <tr><td>评分忽高忽低，不稳定</td><td>评分标准描述不够具体</td><td>为每个维度的每个等级提供明确的分数区间和判断条件</td></tr>
+              <tr><td>评语太空洞，总是"写得好"</td><td>缺少输出格式的硬约束</td><td>在约束层明确要求"每个评价必须引用原文+具体分析"</td></tr>
+              <tr><td>输出格式不对，缺了某些部分</td><td>Prompt 太长，模型忽略了后半段</td><td>将关键格式要求前置，或使用 Markdown 标题强化层级</td></tr>
+              <tr><td>知识库没有生效</td><td>未正确关联或切片太大</td><td>检查关联状态，尝试将文档按主题拆分为更小的段落</td></tr>
+              <tr><td>图片识别不准确</td><td>手写字迹潦草或拍照模糊</td><td>提醒学生使用清晰的字迹，或在光线充足处拍摄</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 4.6 布置作业 -->
+        <h5 style="color:var(--ink); margin:24px 0 12px; font-size:0.95rem;">4.6 课后任务</h5>
+        <div style="padding:20px; background:var(--paper-dark); border-radius:var(--radius);">
+          <ol style="font-size:0.9rem; line-height:2; padding-left:20px;">
+            <li><strong>发布并分享：</strong>将你的作文批改助手发布到至少一个渠道，获取链接或二维码</li>
+            <li><strong>收集反馈：</strong>找3位同事或学生使用你的 Bot，收集他们的使用反馈</li>
+            <li><strong>迭代优化：</strong>根据反馈修改 Prompt 和知识库，完成至少一轮迭代</li>
+            <li><strong>路演准备：</strong>准备1分钟的 Bot 演示——给一段作文，展示批改全过程</li>
+            <li><strong>思考题：</strong>除了作文批改，你还能用 Coze 搭建什么教学助手？列出3个创意并简要说明</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Prompt 速查卡 -->
+      <div style="margin-top:32px; padding:24px; background:linear-gradient(135deg,rgba(108,92,231,0.06),rgba(196,30,58,0.04)); border:1px solid var(--border); border-radius:var(--radius-lg);">
+        <h5 style="color:var(--ink); margin-bottom:12px; font-size:0.95rem;">速查卡：Coze Bot 配置清单</h5>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px; font-size:0.82rem;">
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--vermillion);">基础设置</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>Bot 名称：作文批改助手</li>
+              <li>模型选择：豆包大模型</li>
+              <li>开场白已配置</li>
+              <li>预置问答 >= 3条</li>
+            </ul>
+          </div>
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--vermillion);">人设与 Prompt</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>五层 Prompt 结构完整</li>
+              <li>五维度评分标准明确</li>
+              <li>输出格式模板清晰</li>
+              <li>约束与边界明确</li>
+            </ul>
+          </div>
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--vermillion);">知识库与插件</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>知识库已创建并关联</li>
+              <li>评分标准文档已上传</li>
+              <li>>= 2个实用插件已添加</li>
+            </ul>
+          </div>
+          <div style="padding:12px; background:#fff; border-radius:8px;">
+            <strong style="color:var(--vermillion);">测试与发布</strong>
+            <ul style="margin-top:6px; padding-left:16px; color:var(--stone);">
+              <li>六个测试用例全部通过</li>
+              <li>>= 3轮迭代优化完成</li>
+              <li>已发布到 >= 1个渠道</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4.4 课程总结 -->
+  <div class="subsection" style="margin-top:64px;">
+    <h3 class="subsection-title"><span class="subsection-num purple">4</span>课程总结与展望</h3>
+    <div class="subsection-body">
+      <p>四讲课程的学习路径回顾——从认知到创造：</p>
+      <div class="flow-steps" style="margin-top:16px;">
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <h4>认知觉醒</h4>
+          <p>理解 AI 不只是聊天——文生文、图、声、视频、代码、智能体，打开视野</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <h4>动手创造</h4>
+          <p>掌握 Vibe Coding 工具（Trae），用自然语言创建 PBL 教学网站</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <h4>深入进阶</h4>
+          <p>掌握 MCP 与 Skill，将 AI 工具链化、自动化、可复用</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <h4>独立创作</h4>
+          <p>用 Coze 搭建智能体，将教学经验固化为可分享的 AI 助手</p>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <p style="font-family:'Noto Serif SC',serif; font-size:1.2rem; font-weight:700; color:var(--ink);">
+          从"AI 的使用者"到"AI 的创造者"——这就是本课程的意义
+        </p>
+        <a href="index.html" class="btn btn-primary" style="margin-top:20px;">返回首页</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── Page Navigation ── -->
+<div class="subsection" style="text-align:center; padding-bottom:32px;">
+  <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+    <a href="lecture3.html" class="btn btn-outline">&larr; 第三讲</a>
+    <a href="index.html" class="btn btn-primary">返回首页</a>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <p style="font-family:'Noto Serif SC',serif; font-weight:600; margin-bottom:4px;">从智能体到教学网站：AI 辅助教学构建实战三部曲</p>
+  <p>面向教师的 AI 赋能系列课程 · 四讲掌握 AI 教学工具链</p>
+</footer>
+
+<!-- ── Back to top ── -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// ── Scroll-aware navigation ──
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+function onScroll() {
+  const scrollY = window.scrollY;
+
+  // Nav shadow
+  if (navbar) navbar.classList.toggle('scrolled', scrollY > 10);
+
+  // Back to top visibility
+  if (backToTop) backToTop.classList.toggle('visible', scrollY > 600);
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// ── Back to top ──
+if (backToTop) {
+  backToTop.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// ── Mobile menu toggle ──
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinksEl = document.getElementById('navLinks');
+if (mobileToggle && navLinksEl) {
+  mobileToggle.addEventListener('click', function() {
+    navLinksEl.classList.toggle('mobile-open');
+  });
+
+  // Close mobile menu on link click
+  navLinksEl.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      navLinksEl.classList.remove('mobile-open');
+    });
+  });
+}
+
+// ── Quiz interaction ──
+function checkAnswer(optionEl) {
+  const quizCard = optionEl.closest('.quiz-card');
+  if (!quizCard || quizCard.dataset.answered) return;
+
+  const isCorrect = optionEl.dataset.correct === 'true';
+  const allOptions = quizCard.querySelectorAll('.quiz-option');
+  allOptions.forEach(function(opt) { opt.style.pointerEvents = 'none'; });
+  quizCard.dataset.answered = 'true';
+
+  allOptions.forEach(function(opt) {
+    if (opt.dataset.correct === 'true') opt.classList.add('correct');
+    else if (opt === optionEl && !isCorrect) opt.classList.add('wrong');
+  });
+
+  const feedback = quizCard.querySelector('.quiz-feedback');
+  if (feedback) {
+    feedback.style.display = 'block';
+    feedback.textContent = isCorrect ? '回答正确！' : '回答错误，正确答案已标出';
+    feedback.style.color = isCorrect ? 'var(--jade)' : 'var(--vermillion)';
+  }
+}
+
+// ── Audio demo ──
+function toggleAudio(btn, demoId) {
+  const wasPlaying = btn.classList.contains('playing');
+  document.querySelectorAll('.audio-play-btn.playing').forEach(function(b) {
+    b.classList.remove('playing');
+    b.textContent = '▶';
+  });
+  if (!wasPlaying) {
+    btn.classList.add('playing');
+    btn.textContent = '⏸';
+  }
+}
+</script>
+</body>
+</html>

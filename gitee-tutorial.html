@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gitee从零到发布网页完整教程</title>
+    <style>
+        /* 基础样式设置 - 为整个页面设置默认字体和颜色 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* 页面顶部标题栏样式 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        /* 主要内容容器样式 */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 教程卡片样式 - 每个步骤都是一个卡片 */
+        .tutorial-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 卡片标题栏样式 */
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .card-header:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a4190 100%);
+        }
+
+        .card-header h2 {
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-number {
+            background: white;
+            color: #667eea;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .toggle-icon {
+            font-size: 2em;
+            transition: transform 0.3s ease;
+        }
+
+        .card-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* 卡片内容区域样式 */
+        .card-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .card-content.active {
+            padding: 30px;
+            max-height: 3000px;
+        }
+
+        /* 教程内容段落样式 */
+        .content-section {
+            margin-bottom: 25px;
+        }
+
+        .content-section h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+
+        .content-section p {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        /* 重点提示框样式 */
+        .tip-box {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d4ecf9 100%);
+            border-left: 5px solid #2196F3;
+            padding: 18px 22px;
+            margin: 18px 0;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .tip-box.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left-color: #ff9800;
+        }
+
+        .tip-box.success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left-color: #4caf50;
+        }
+
+        .tip-box strong {
+            color: #1976D2;
+        }
+
+        .tip-box.warning strong {
+            color: #f57c00;
+        }
+
+        .tip-box.success strong {
+            color: #388e3c;
+        }
+
+        /* 代码块样式 */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .code-block .command {
+            color: #9cdcfe;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        /* 步骤列表样式 */
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            color: #444;
+        }
+
+        .step-list li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        /* 图片占位符样式 - 用于展示界面 */
+        .image-placeholder {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border: 3px dashed #c1c8ce;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+
+        .image-placeholder .icon {
+            font-size: 3.5em;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            cursor: pointer;
+            border: none;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.6);
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            opacity: 0.9;
+        }
+
+        /* 进度导航样式 */
+        .progress-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .progress-nav .nav-btn {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+        }
+
+        .progress-nav .nav-btn:hover,
+        .progress-nav .nav-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* 响应式设计 - 移动端适配 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .card-header h2 {
+                font-size: 1.3em;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 1em;
+            }
+
+            .card-content.active {
+                padding: 20px;
+            }
+
+            .progress-nav {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .progress-nav .nav-btn {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* 搜索框样式 */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            outline: none;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 5px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 小白科普 - 术语解释 */
+        .term-explainer {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 10px 0;
+        }
+
+        .term-explainer dt {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .term-explainer dd {
+            margin: 5px 0 10px 20px;
+            color: #666;
+        }
+
+        /* 快捷目录样式 */
+        .quick-nav {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .quick-nav h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .quick-nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .quick-nav li a {
+            display: block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            color: #495057;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .quick-nav li a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left-color: white;
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面顶部标题 -->
+    <header class="header">
+        <h1>🚀 Gitee 从零到发布网页完整教程</h1>
+        <p>专为小白打造的GitHub/Gitee新手入门指南</p>
+    </header>
+
+    <!-- 快捷导航目录 -->
+    <div class="container">
+        <nav class="quick-nav">
+            <h3>📚 教程目录</h3>
+            <ul>
+                <li><a href="#section1">📝 第一步：注册Gitee账号</a></li>
+                <li><a href="#section2">🗄️ 第二步：创建第一个仓库</a></li>
+                <li><a href="#section3">💻 第三步：安装Git工具</a></li>
+                <li><a href="#section4">⬆️ 第四步：推送代码到仓库</a></li>
+                <li><a href="#section5">🌐 第五步：部署为网页</a></li>
+                <li><a href="#section6">🔧 第六步：常见问题解答</a></li>
+            </ul>
+        </nav>
+
+        <!-- 搜索功能 -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 搜索教程内容..." onkeyup="searchContent()">
+        </div>
+
+        <!-- 第一步：注册Gitee账号 -->
+        <section id="section1" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">1</span>
+                    📝 第一步：注册Gitee账号
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>什么是Gitee？</h3>
+                    <div class="tip-box">
+                        <strong>💡 小白科普：</strong>Gitee（码云）是一个代码托管平台，就像一个"云端硬盘"，但是专门用来存放代码的。你可以把它想象成一个放代码的"网盘"，不过比普通网盘多了版本管理、团队协作等功能。中国用户使用Gitee比GitHub更方便，速度也更快。
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>注册步骤</h3>
+                    <ol class="step-list">
+                        <li>打开浏览器，访问 <a href="https://gitee.com" target="_blank" style="color: #667eea;">Gitee官网</a></li>
+                        <li>点击页面右上角的"注册"按钮</li>
+                        <li>填写手机号码或邮箱，设置密码</li>
+                        <li>完成手机验证码验证（手机号注册会收到验证码）</li>
+                        <li>设置你的用户名（这个很重要，之后你的仓库地址会用到）</li>
+                        <li>勾选同意用户协议，点击注册</li>
+                    </ol>
+                </div>
+
+                <div class="content-section">
+                    <h3>注册界面示意</h3>
+                    <div class="image-placeholder">
+                        <span class="icon">🖥️</span>
+                        <p>这里会显示Gitee注册页面的截图</p>
+                        <small>注册页面包含：手机号/邮箱、密码、验证码等输入框</small>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>注意事项</h3>
+                    <div class="tip-box warning">
+                        <strong>⚠️ 重要提醒：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>用户名最好用英文，不要有特殊字符</li>
+                            <li>密码要包含字母和数字，至少8位</li>
+                            <li>记住你的用户名，之后会频繁用到</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二步：创建第一个仓库 -->
+        <section id="section2" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">2</span>
+                    🗄️ 第二步：创建第一个仓库
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>什么是仓库？</h3>
+                    <div class="tip-box">
+                        <strong>💡 小白科普：</strong>仓库（Repository）就像一个文件夹，用来存放你的项目代码。你可以创建多个仓库，每个仓库存放一个独立的项目。比如你可以创建一个"我的个人网站"仓库，一个"我的毕业设计"仓库等。
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>创建仓库步骤</h3>
+                    <ol class="step-list">
+                        <li>登录你的Gitee账号</li>
+                        <li>点击页面右上角的"+"号，选择"新建仓库"</li>
+                        <li>填写仓库名称（建议用英文，比如 my-website）</li>
+                        <li>填写仓库描述（可选，比如"我的个人主页"）</li>
+                        <li>选择"公开"（公开仓库才能用Gitee Pages部署网页）</li>
+                        <li>勾选"使用Readme文件初始化这个仓库"</li>
+                        <li>点击"创建"按钮</li>
+                    </ol>
+                </div>
+
+                <div class="content-section">
+                    <h3>仓库命名规范</h3>
+                    <div class="tip-box success">
+                        <strong>✅ 好的命名示例：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>my-website</li>
+                            <li>portfolio</li>
+                            <li>blog</li>
+                            <li>first-project</li>
+                        </ul>
+                    </div>
+                    <div class="tip-box warning">
+                        <strong>❌ 不推荐的命名：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>我的网站（包含中文）</li>
+                            <li>123（没有意义）</li>
+                            <li>wang zhan（拼音）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>创建后的页面</h3>
+                    <div class="image-placeholder">
+                        <span class="icon">📂</span>
+                        <p>这里会显示创建仓库成功后的页面</p>
+                        <small>你会看到仓库地址，类似：https://gitee.com/你的用户名/仓库名</small>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>获取仓库地址</h3>
+                    <p>创建完成后，页面会显示你的仓库地址，格式类似：</p>
+                    <div class="code-block">
+                        <span class="comment"># 你的仓库地址长这样：</span>
+                        <span class="string">https://gitee.com/你的用户名/仓库名.git</span>
+                    </div>
+                    <p>把这个地址复制下来，后面推送代码时会用到！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三步：安装Git工具 -->
+        <section id="section3" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">3</span>
+                    💻 第三步：安装Git工具
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>什么是Git？</h3>
+                    <div class="tip-box">
+                        <strong>💡 小白科普：</strong>Git是一个版本控制工具，可以理解为一个"代码时光机"。它可以记录你代码的所有修改历史，还可以让你轻松地在不同版本之间切换。最重要的是，它能让你把本地电脑上的代码上传到Gitee服务器上。
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Windows系统安装Git</h3>
+                    <ol class="step-list">
+                        <li>访问Git官网：<a href="https://git-scm.com/download/win" target="_blank" style="color: #667eea;">https://git-scm.com/download/win</a></li>
+                        <li>下载Windows版本的Git安装包</li>
+                        <li>双击安装包运行，一路点击"Next"即可（使用默认设置）</li>
+                        <li>安装完成后，右键桌面任意位置，会看到"Git Bash Here"选项</li>
+                        <li>点击它，会弹出一个黑色命令行窗口，说明安装成功</li>
+                    </ol>
+                </div>
+
+                <div class="content-section">
+                    <h3>验证Git是否安装成功</h3>
+                    <p>按键盘上的 <strong>Win + R</strong>，输入 <strong>cmd</strong>，回车打开命令提示符，输入：</p>
+                    <div class="code-block">
+                        <span class="command">git --version</span>
+                    </div>
+                    <p>如果显示类似 <code>git version 2.x.x</code> 的内容，说明安装成功！</p>
+                </div>
+
+                <div class="content-section">
+                    <h3>配置Git（只需配置一次）</h3>
+                    <p>打开Git Bash（右键 -> Git Bash Here），输入以下命令配置你的身份：</p>
+                    <div class="code-block">
+                        <span class="comment"># 设置你的用户名（改成你自己的）</span>
+                        <span class="command">git config --global user.name "你的用户名"</span>
+
+                        <span class="comment"># 设置你的邮箱（改成你自己的）</span>
+                        <span class="command">git config --global user.email "your-email@example.com"</span>
+                    </div>
+                    <div class="tip-box success">
+                        <strong>✅ 提示：</strong>配置完成后不需要每次都配置，一次配置永久使用。
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>安装界面示意</h3>
+                    <div class="image-placeholder">
+                        <span class="icon">⚙️</span>
+                        <p>这里会显示Git安装过程的截图</p>
+                        <small>安装过程保持默认设置，一路Next即可</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四步：推送代码到仓库 -->
+        <section id="section4" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">4</span>
+                    ⬆️ 第四步：推送代码到仓库
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>什么是推送？</h3>
+                    <div class="tip-box">
+                        <strong>💡 小白科普：</strong>推送（Push）就是把本地电脑上的代码上传到Gitee服务器的过程。就像你把手机里的照片上传到百度网盘一样。推送之前需要先关联你的本地文件夹和Gitee上的仓库。
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>创建你的网页文件</h3>
+                    <p>首先，在你电脑的合适位置创建一个文件夹，比如 <code>D:\my-website</code></p>
+                    <p>在这个文件夹里创建一个HTML文件，命名为 <code>index.html</code>，内容如下：</p>
+                    <div class="code-block">
+<span class="string"><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>我的第一个网页</title>
+</head>
+<body>
+    <h1>欢迎来到我的网站！</h1>
+    <p>这是我通过Gitee托管的第一个网页。</p>
+</body>
+</html></span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>初始化本地仓库</h3>
+                    <p>打开Git Bash，进入你的网站文件夹，输入：</p>
+                    <div class="code-block">
+                        <span class="comment"># 进入文件夹（把路径改成你实际的文件夹路径）</span>
+                        <span class="command">cd D:\my-website</span>
+
+                        <span class="comment"># 初始化本地仓库（会创建一个隐藏的.git文件夹）</span>
+                        <span class="command">git init</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>关联远程仓库</h3>
+                    <p>把第二步创建的仓库地址复制过来，关联到本地：</p>
+                    <div class="code-block">
+                        <span class="comment"># 把下面的地址换成你实际的仓库地址</span>
+                        <span class="command">git remote add origin https://gitee.com/你的用户名/仓库名.git</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>添加文件并提交</h3>
+                    <div class="code-block">
+                        <span class="comment"># 添加所有文件到暂存区（注意：有个点号）</span>
+                        <span class="command">git add .</span>
+
+                        <span class="comment"># 提交到本地仓库，-m后面是提交说明</span>
+                        <span class="command">git commit -m "第一次提交：添加首页"</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>推送到Gitee</h3>
+                    <div class="code-block">
+                        <span class="comment"># 推送到远程仓库的master分支</span>
+                        <span class="command">git push -u origin master</span>
+                    </div>
+                    <div class="tip-box warning">
+                        <strong>⚠️ 第一次推送需要登录：</strong>推送时会提示输入用户名和密码。用户名是你Gitee的用户名，密码是你注册时的密码（如果是手机注册，密码是你设置的密码）。
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>完整流程一览</h3>
+                    <div class="image-placeholder">
+                        <span class="icon">📊</span>
+                        <p>代码推送完整流程图</p>
+                        <small>工作区 -> 暂存区 -> 本地仓库 -> 远程仓库</small>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>推送成功后</h3>
+                    <div class="tip-box success">
+                        <strong>🎉 恭喜！</strong>推送成功后，刷新你的Gitee仓库页面，就能看到你上传的index.html文件了！
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五步：部署为网页 -->
+        <section id="section5" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">5</span>
+                    🌐 第五步：部署为网页
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>什么是Gitee Pages？</h3>
+                    <div class="tip-box">
+                        <strong>💡 小白科普：</strong>Gitee Pages是Gitee提供的免费静态网页托管服务。你可以把它理解为一个免费的网络空间。只要你把网页文件上传到Gitee仓库，启用Gitee Pages，你的网站就能通过互联网访问了！
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>启用Gitee Pages</h3>
+                    <ol class="step-list">
+                        <li>登录Gitee，进入你的仓库页面</li>
+                        <li>点击左侧菜单的"服务" -> "Gitee Pages"</li>
+                        <li>进入Gitee Pages设置页面</li>
+                        <li>选择要部署的分支（一般选择master）</li>
+                        <li>选择部署目录（一般默认 /（根目录））</li>
+                        <li>点击"启动"按钮</li>
+                        <li>等待几秒钟，会给你一个访问地址</li>
+                    </ol>
+                </div>
+
+                <div class="content-section">
+                    <h3>Gitee Pages设置页面</h3>
+                    <div class="image-placeholder">
+                        <span class="icon">🌐</span>
+                        <p>这里会显示Gitee Pages设置界面</p>
+                        <small>点击"启动"后，会生成一个类似 xxx.gitee.io 的网址</small>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>访问你的网站</h3>
+                    <p>启用成功后，Gitee会给你一个访问地址，格式类似：</p>
+                    <div class="code-block">
+                        <span class="string">https://你的用户名.gitee.io/仓库名</span>
+                    </div>
+                    <p>把这个地址复制到浏览器打开，就能看到你的网页了！</p>
+                </div>
+
+                <div class="content-section">
+                    <h3>更新网站内容</h3>
+                    <p>如果之后你修改了代码，需要重新推送并更新Gitee Pages：</p>
+                    <div class="code-block">
+                        <span class="comment"># 修改代码后，重新添加、提交、推送</span>
+                        <span class="command">git add .</span>
+                        <span class="command">git commit -m "更新网站内容"</span>
+                        <span class="command">git push</span>
+
+                        <span class="comment"># 推送完成后，回到Gitee Pages页面点击"更新"</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>完美！你已经完成了！</h3>
+                    <div class="tip-box success">
+                        <strong>🎊 恭喜你学会了这个完整流程！</strong>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li>✅ 注册了Gitee账号</li>
+                            <li>✅ 创建了第一个仓库</li>
+                            <li>✅ 安装了Git工具</li>
+                            <li>✅ 上传了网页代码</li>
+                            <li>✅ 成功部署了网页</li>
+                        </ul>
+                        <p style="margin-top: 15px;">现在你也可以向朋友们炫耀："看，这是我自己做的网站！" 🚀</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第六步：常见问题 -->
+        <section id="section6" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">6</span>
+                    🔧 第六步：常见问题解答
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>推送时提示用户名密码错误</h3>
+                    <div class="tip-box warning">
+                        <strong>问题：</strong>推送时提示 Authentication failed 或者用户名密码不对<br>
+                        <strong>解决：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>确认Gitee的用户名是你的登录名（不是邮箱）</li>
+                            <li>密码如果忘记了，可以在Gitee设置里重置</li>
+                            <li>如果是Windows，可能需要清理之前的凭证</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Gitee Pages访问提示404</h3>
+                    <div class="tip-box warning">
+                        <strong>问题：</strong>Gitee Pages显示404 Not Found<br>
+                        <strong>解决：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>确认index.html文件在仓库的根目录</li>
+                            <li>检查文件名是否为index.html（不是Index.html）</li>
+                            <li>尝试重新启动Gitee Pages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>git push没有任何反应</h3>
+                    <div class="tip-box warning">
+                        <strong>问题：</strong>输入git push后卡住了，没有反应<br>
+                        <strong>解决：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>检查网络连接是否正常</li>
+                            <li>确认仓库地址是否正确</li>
+                            <li>按Ctrl+C取消，然后重新尝试</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>如何创建更多页面？</h3>
+                    <p>在仓库里创建更多HTML文件即可，比如：</p>
+                    <div class="code-block">
+                        <span class="comment"># 假设你创建了以下文件结构：</span>
+                        /index.html      <span class="comment">（首页）</span>
+                        /about.html      <span class="comment">（关于我们页面）</span>
+                        /contact.html    <span class="comment">（联系我们页面）</span>
+                        /style.css       <span class="comment">（样式文件）</span>
+
+                        <span class="comment"># 推送后，在Gitee Pages中所有文件都可以访问</span>
+                        <span class="comment"># 访问地址：https://你的用户名.gitee.io/仓库名/about.html</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>如何删除仓库？</h3>
+                    <ol class="step-list">
+                        <li>进入要删除的仓库页面</li>
+                        <li>点击右上角的"设置"</li>
+                        <li>滑到页面最下方，找到"危险区域"</li>
+                        <li>点击"删除仓库"</li>
+                        <li>按照提示输入仓库名称确认删除</li>
+                    </ol>
+                    <div class="tip-box warning" style="margin-top: 15px;">
+                        <strong>⚠️ 注意：</strong>删除仓库后，仓库里的所有内容都无法恢复，请谨慎操作！
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>还想学习更多？</h3>
+                    <div class="tip-box success">
+                        <strong>📚 进阶学习建议：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>学习HTML和CSS，创建更漂亮的网页</li>
+                            <li>学习JavaScript，让网页有交互效果</li>
+                            <li>学习Git的分支管理功能</li>
+                            <li>学习团队协作开发</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 附录：常用命令速查表 -->
+        <section id="appendix" class="tutorial-card">
+            <div class="card-header" onclick="toggleCard(this)">
+                <h2>
+                    <span class="step-number">📖</span>
+                    附录：Git常用命令速查表
+                </h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="card-content">
+                <div class="content-section">
+                    <h3>基础命令</h3>
+                    <div class="code-block">
+<span class="command">git init</span>              <span class="comment"># 初始化本地仓库</span>
+<span class="command">git clone 地址</span>       <span class="comment"># 克隆远程仓库到本地</span>
+<span class="command">git status</span>            <span class="comment"># 查看当前状态</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>添加和提交命令</h3>
+                    <div class="code-block">
+<span class="command">git add 文件名</span>       <span class="comment"># 添加单个文件</span>
+<span class="command">git add .</span>             <span class="comment"># 添加所有文件</span>
+<span class="command">git commit -m "说明"</span>  <span class="comment"># 提交到本地仓库</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>推送和拉取命令</h3>
+                    <div class="code-block">
+<span class="command">git push</span>             <span class="comment"># 推送到远程仓库</span>
+<span class="command">git pull</span>             <span class="comment"># 从远程仓库拉取更新</span>
+<span class="command">git remote -v</span>        <span class="comment"># 查看远程仓库地址</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3>分支命令</h3>
+                    <div class="code-block">
+<span class="command">git branch</span>           <span class="comment"># 查看分支</span>
+<span class="command">git checkout 分支名</span>  <span class="comment"># 切换分支</span>
+<span class="command">git merge 分支名</span>     <span class="comment"># 合并分支</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>📚 Gitee 新手教程 | 专为小白打造 | 祝你学习愉快！</p>
+        <p style="margin-top: 10px;">© 2024 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // 切换卡片展开/收起功能
+        function toggleCard(header) {
+            // 获取卡片内容和头部
+            const card = header.parentElement;
+            const content = card.querySelector('.card-content');
+            const allContents = document.querySelectorAll('.card-content');
+            const allHeaders = document.querySelectorAll('.card-header');
+
+            // 关闭所有其他卡片
+            allContents.forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('active');
+                }
+            });
+
+            allHeaders.forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('active');
+                }
+            });
+
+            // 切换当前卡片
+            content.classList.toggle('active');
+            header.classList.toggle('active');
+        }
+
+        // 搜索功能
+        function searchContent() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const cards = document.querySelectorAll('.tutorial-card');
+
+            cards.forEach(card => {
+                const text = card.textContent || card.innerText;
+                if (text.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 平滑滚动到对应章节
+        document.querySelectorAll('.quick-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    // 先展开卡片
+                    const content = targetSection.querySelector('.card-content');
+                    const header = targetSection.querySelector('.card-header');
+                    if (content && !content.classList.contains('active')) {
+                        content.classList.add('active');
+                        header.classList.add('active');
+                    }
+                    // 滚动到目标位置
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            });
+        });
+
+        // 页面加载完成后自动展开第一个卡片
+        window.addEventListener('load', function() {
+            const firstCard = document.querySelector('.tutorial-card');
+            if (firstCard) {
+                const content = firstCard.querySelector('.card-content');
+                const header = firstCard.querySelector('.card-header');
+                if (content && header) {
+                    content.classList.add('active');
+                    header.classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
